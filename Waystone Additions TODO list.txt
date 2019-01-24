@@ -1,5 +1,3 @@
-Make config settings save when using in-game menu
-
 Implement config options
 
 Add renders for protected zones
