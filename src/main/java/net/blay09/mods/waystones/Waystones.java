@@ -38,7 +38,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
-@Mod(modid = Waystones.MOD_ID, name = "Waystones", acceptedMinecraftVersions = "[1.12]")
+@Mod(modid = Waystones.MOD_ID, version = "4.0.67", name = "Waystones", acceptedMinecraftVersions = "[1.12]")
 @Mod.EventBusSubscriber
 public class Waystones {
 
