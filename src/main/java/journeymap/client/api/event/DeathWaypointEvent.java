@@ -22,12 +22,4 @@ public class DeathWaypointEvent extends ClientEvent
         super(Type.DEATH_WAYPOINT, dimension);
         this.location = location;
     }
-
-    @Override
-    public String toString()
-    {
-        return Objects.toStringHelper(this)
-                .add("location", location)
-                .toString();
-    }
 }

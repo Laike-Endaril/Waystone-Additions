@@ -170,18 +170,4 @@ public class ShapeProperties
     {
         return Objects.hashCode(strokeColor, fillColor, strokeOpacity, fillOpacity, strokeWidth);
     }
-
-    @Override
-    public String toString()
-    {
-        return Objects.toStringHelper(this)
-                .add("fillColor", fillColor)
-                .add("fillOpacity", fillOpacity)
-                .add("strokeColor", strokeColor)
-                .add("strokeOpacity", strokeOpacity)
-                .add("strokeWidth", strokeWidth)
-                .toString();
-    }
-
-
 }

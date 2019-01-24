@@ -119,14 +119,4 @@ public final class ImageOverlay extends Overlay
         this.image = image;
         return this;
     }
-
-    @Override
-    public String toString()
-    {
-        return toStringHelper(this)
-                .add("image", image)
-                .add("northWestPoint", northWestPoint)
-                .add("southEastPoint", southEastPoint)
-                .toString();
-    }
 }

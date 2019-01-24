@@ -346,23 +346,4 @@ public class TextProperties
         this.offsetY = offsetY;
         return this;
     }
-
-    @Override
-    public String toString()
-    {
-        return Objects.toStringHelper(this)
-                .add("activeMapTypes", activeMapTypes)
-                .add("activeUIs", activeUIs)
-                .add("backgroundColor", backgroundColor)
-                .add("backgroundOpacity", backgroundOpacity)
-                .add("color", color)
-                .add("opacity", opacity)
-                .add("fontShadow", fontShadow)
-                .add("maxZoom", maxZoom)
-                .add("minZoom", minZoom)
-                .add("offsetX", offsetX)
-                .add("offsetY", offsetY)
-                .add("scale", scale)
-                .toString();
-    }
 }

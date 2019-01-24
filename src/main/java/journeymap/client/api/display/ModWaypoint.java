@@ -289,20 +289,4 @@ public final class ModWaypoint extends Displayable
     {
         return 0;
     }
-
-    @Override
-    public String toString()
-    {
-        return Objects.toStringHelper(this)
-                .add("guid", getGuid())
-                .add("waypointName", waypointName)
-                .add("waypointGroupName", waypointGroupName)
-                .add("editable", editable)
-                .add("color", color)
-                .add("dimensions", dimensions)
-                .add("icon", icon)
-                .add("iconName", getIconName())
-                .add("point", point)
-                .toString();
-    }
 }

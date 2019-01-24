@@ -145,14 +145,4 @@ public final class PolygonOverlay extends Overlay
         this.shapeProperties = shapeProperties;
         return this;
     }
-
-    @Override
-    public String toString()
-    {
-        return toStringHelper(this)
-                .add("holes", holes)
-                .add("outerArea", outerArea)
-                .add("shapeProperties", shapeProperties)
-                .toString();
-    }
 }

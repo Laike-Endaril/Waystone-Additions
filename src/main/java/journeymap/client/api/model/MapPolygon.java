@@ -95,12 +95,4 @@ public final class MapPolygon
     {
         return points.iterator();
     }
-
-    @Override
-    public String toString()
-    {
-        return Objects.toStringHelper(this)
-                .add("points", points)
-                .toString();
-    }
 }

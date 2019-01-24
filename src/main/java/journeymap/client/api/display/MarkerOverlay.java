@@ -97,13 +97,4 @@ public final class MarkerOverlay extends Overlay
         this.icon = icon;
         return this;
     }
-
-    @Override
-    public String toString()
-    {
-        return toStringHelper(this)
-                .add("icon", icon)
-                .add("point", point)
-                .toString();
-    }
 }

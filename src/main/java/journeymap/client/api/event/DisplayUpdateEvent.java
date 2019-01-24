@@ -24,12 +24,4 @@ public class DisplayUpdateEvent extends ClientEvent
         super(Type.DISPLAY_UPDATE, uiState.dimension);
         this.uiState = uiState;
     }
-
-    @Override
-    public String toString()
-    {
-        return Objects.toStringHelper(this)
-                .add("uiState", uiState)
-                .toString();
-    }
 }

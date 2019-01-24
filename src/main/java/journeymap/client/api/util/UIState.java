@@ -149,23 +149,4 @@ public final class UIState
     {
         return Objects.hashCode(ui, active, dimension, zoom, mapType, displayBounds);
     }
-
-    @Override
-    public String toString()
-    {
-        return Objects.toStringHelper(this)
-                .add("ui", ui)
-                .add("active", active)
-                .add("dimension", dimension)
-                .add("mapType", mapType)
-                .add("zoom", zoom)
-                .add("mapCenter", mapCenter)
-                .add("chunkY", chunkY)
-                .add("blockBounds", blockBounds)
-                .add("displayBounds", displayBounds)
-                .add("blockSize", blockSize)
-                .toString();
-    }
-
-
 }

@@ -390,21 +390,4 @@ public final class MapImage
     {
         return Objects.hashCode(imageLocation, color, opacity, anchorX, anchorY, textureX, textureY, textureWidth, textureHeight);
     }
-
-    @Override
-    public String toString()
-    {
-        return Objects.toStringHelper(this)
-                .add("imageLocation", imageLocation)
-                .add("anchorX", anchorX)
-                .add("anchorY", anchorY)
-                .add("color", color)
-                .add("textureHeight", textureHeight)
-                .add("opacity", opacity)
-                .add("textureX", textureX)
-                .add("textureY", textureY)
-                .add("textureWidth", textureWidth)
-                .toString();
-    }
-
 }

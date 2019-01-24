@@ -352,26 +352,4 @@ public abstract class Overlay extends Displayable
     {
         return needsRerender;
     }
-
-    /**
-     * Provides common output for toStringHelper() to subclasses
-     *
-     * @param instance subclass
-     * @return helper for continuing to add properties on subclass
-     */
-    protected final Objects.ToStringHelper toStringHelper(Overlay instance)
-    {
-        return Objects.toStringHelper(this)
-                .add("label", label)
-                .add("title", title)
-                .add("overlayGroupName", overlayGroupName)
-                .add("activeMapTypes", activeMapTypes)
-                .add("activeUIs", activeUIs)
-                .add("dimension", dimension)
-                .add("displayOrder", displayOrder)
-                .add("maxZoom", maxZoom)
-                .add("minZoom", minZoom)
-                .add("textProperties", textProperties)
-                .add("hasOverlayListener", overlayListener!=null);
-    }
 }
