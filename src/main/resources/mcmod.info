@@ -1,0 +1,16 @@
+[
+{
+  "modid": "waystoneadditions",
+  "name": "Waystone Additions",
+  "description": "An addon for BlayTheNinth's Waystones mod",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Laike_Endaril"],
+  "credits": "BlayTheNinth (Waystones)",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
