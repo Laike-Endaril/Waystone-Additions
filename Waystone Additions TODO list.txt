@@ -1,0 +1,7 @@
+Make config settings save when using in-game menu
+
+Implement config options
+
+Add renders for protected zones
+
+Add a way to lay siege to a waystone (from outside the block protection zone)
