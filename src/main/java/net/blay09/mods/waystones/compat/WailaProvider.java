@@ -3,9 +3,7 @@ package net.blay09.mods.waystones.compat;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
-import mcp.mobius.waila.api.IWailaPlugin;
 import mcp.mobius.waila.api.IWailaRegistrar;
-import mcp.mobius.waila.api.WailaPlugin;
 import net.blay09.mods.waystones.block.BlockWaystone;
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -18,10 +16,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-@WailaPlugin
-public class WailaProvider implements IWailaPlugin {
+public class WailaProvider{
 
-	@Override
 	public void register(IWailaRegistrar registrar) {
 		registrar.registerBodyProvider(new WaystoneDataProvider(), BlockWaystone.class);
 	}
@@ -52,7 +48,6 @@ public class WailaProvider implements IWailaPlugin {
 			return list;
 		}
 
-		@Override
 		public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity tileEntity, NBTTagCompound tagCompound, World world, BlockPos pos) {
 			if(tileEntity != null) {
 				tileEntity.writeToNBT(tagCompound);
