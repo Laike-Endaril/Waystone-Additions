@@ -27,20 +27,12 @@ public class WaystoneAdditions
     public static final String MODID = "waystoneadditions";
     public static final String NAME = "Waystone Additions";
     public static final String VERSION = "1.12.2.001";
-
-    private static Logger logger;
-
     public static ArrayList<TileWaystone> waystones = new ArrayList<>();
+    private static Logger logger;
 
     public WaystoneAdditions()
     {
         MinecraftForge.EVENT_BUS.register(WaystoneAdditions.class);
-    }
-
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
-        logger = event.getModLog();
     }
 
     @SubscribeEvent
@@ -49,13 +41,11 @@ public class WaystoneAdditions
         if (event.getModID().equals(MODID)) ConfigManager.sync(MODID, Config.Type.INSTANCE);
     }
 
-
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerBlocks(RegistryEvent.Register<Block> event) throws IllegalAccessException
     {
         event.getRegistry().registerAll(new BlockWaystoneEdit());
     }
-
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void damage(LivingHurtEvent event)
@@ -84,5 +74,11 @@ public class WaystoneAdditions
     public static boolean byPassesDamageProtection(Entity entity)
     {
         return false;
+    }
+
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        logger = event.getModLog();
     }
 }

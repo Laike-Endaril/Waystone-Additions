@@ -13,6 +13,12 @@ public class WaystoneAdditionsConfig
         @Config.Name("Spawnstone")
         @Config.Comment("A global waystone that always generates at natural spawn")
         public SpawnstoneSettings spawnstone = new SpawnstoneSettings();
+        @Config.Name("Placed Waystones")
+        @Config.Comment("Options for waystones placed by players")
+        public PlacedWaystones placed = new PlacedWaystones();
+        @Config.Name("Natural Waystones")
+        @Config.Comment("Options for naturally generated waystones")
+        public NaturalWaystones natural = new NaturalWaystones();
 
         public class SpawnstoneSettings
         {
@@ -33,16 +39,14 @@ public class WaystoneAdditionsConfig
             public String spawnstoneName = "Spawn";
         }
 
-
-        @Config.Name("Placed Waystones")
-        @Config.Comment("Options for waystones placed by players")
-        public PlacedWaystones placed = new PlacedWaystones();
-
         public class PlacedWaystones
         {
             @Config.Name("Global Waystones")
             @Config.Comment("Options for global waystones")
             public GlobalWaystones global = new GlobalWaystones();
+            @Config.Name("Non-Global Waystones")
+            @Config.Comment("Options for non-global waystones")
+            public NonGlobalWaytones nonGlobal = new NonGlobalWaytones();
 
             public class GlobalWaystones
             {
@@ -62,11 +66,6 @@ public class WaystoneAdditionsConfig
                 @Config.Comment("If set to true, the waystone owner can deal damage inside the protected zone")
                 public boolean ownerCanKill = false;
             }
-
-
-            @Config.Name("Non-Global Waystones")
-            @Config.Comment("Options for non-global waystones")
-            public NonGlobalWaytones nonGlobal = new NonGlobalWaytones();
 
             public class NonGlobalWaytones
             {
@@ -88,16 +87,19 @@ public class WaystoneAdditionsConfig
             }
         }
 
-
-        @Config.Name("Natural Waystones")
-        @Config.Comment("Options for naturally generated waystones")
-        public NaturalWaystones natural = new NaturalWaystones();
-
         public class NaturalWaystones
         {
             @Config.Name("Mossy Waystones")
             @Config.Comment("Options for mossy waystones (if they are enabled in the config for the Waystones mod)")
             public MossyWaystones mossy = new MossyWaystones();
+            @Config.Name("Smooth Waystones")
+            @Config.Comment(
+                    {
+                            "Options for smooth waystones",
+                            "",
+                            "If mossy waystones are enabled in the config for the Waystones mod, this will pertain only to village waystones"
+                    })
+            public SmoothWaystones smooth = new SmoothWaystones();
 
             public class MossyWaystones
             {
@@ -121,15 +123,6 @@ public class WaystoneAdditionsConfig
                 @Config.Comment("If set to true, the waystone owner can deal damage inside the protected zone")
                 public boolean ownerCanKill = false;
             }
-
-            @Config.Name("Smooth Waystones")
-            @Config.Comment(
-                    {
-                            "Options for smooth waystones",
-                            "",
-                            "If mossy waystones are enabled in the config for the Waystones mod, this will pertain only to village waystones"
-                    })
-            public SmoothWaystones smooth = new SmoothWaystones();
 
             public class SmoothWaystones
             {

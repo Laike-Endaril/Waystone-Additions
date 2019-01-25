@@ -43,6 +43,19 @@ public class TileWaystoneEdit extends TileWaystone
         this.isDummy = isDummy;
     }
 
+    private static void initReflections()
+    {
+        try
+        {
+            customTileDataField = TileEntity.class.getDeclaredField("customTileData");
+            customTileDataField.setAccessible(true);
+        }
+        catch (NoSuchFieldException e)
+        {
+            FMLCommonHandler.instance().exitJava(201, true);
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
@@ -143,6 +156,14 @@ public class TileWaystoneEdit extends TileWaystone
         return waystoneName;
     }
 
+    public void setWaystoneName(String waystoneName)
+    {
+        this.waystoneName = waystoneName;
+        IBlockState state = world.getBlockState(pos);
+        world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, state, 3);
+        markDirty();
+    }
+
     public boolean isOwner(EntityPlayer player)
     {
         return owner == null || player.getGameProfile().getId().equals(owner) || player.capabilities.isCreativeMode;
@@ -166,14 +187,6 @@ public class TileWaystoneEdit extends TileWaystone
     public void setWasGenerated(boolean wasGenerated)
     {
         this.wasGenerated = wasGenerated;
-    }
-
-    public void setWaystoneName(String waystoneName)
-    {
-        this.waystoneName = waystoneName;
-        IBlockState state = world.getBlockState(pos);
-        world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, state, 3);
-        markDirty();
     }
 
     @Override
@@ -216,20 +229,5 @@ public class TileWaystoneEdit extends TileWaystone
             }
         }
         return this;
-    }
-
-
-    private static void initReflections()
-    {
-        try
-        {
-            customTileDataField = TileEntity.class.getDeclaredField("customTileData");
-            customTileDataField.setAccessible(true);
-        }
-        catch (NoSuchFieldException e)
-        {
-            FMLCommonHandler.instance().exitJava(201, true);
-            e.printStackTrace();
-        }
     }
 }

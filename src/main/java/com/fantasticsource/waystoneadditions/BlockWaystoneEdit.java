@@ -18,15 +18,13 @@ import java.lang.reflect.Field;
 
 public class BlockWaystoneEdit extends BlockWaystone
 {
+    private static final StatBase WAYSTONE_ACTIVATED = StatList.getOneShotStat("stat.waystones:waystonesActivated");
     private static Field registryNameField;
 
     static
     {
         initReflections();
     }
-
-
-    private static final StatBase WAYSTONE_ACTIVATED = StatList.getOneShotStat("stat.waystones:waystonesActivated");
 
 
     public BlockWaystoneEdit() throws IllegalAccessException
@@ -36,21 +34,6 @@ public class BlockWaystoneEdit extends BlockWaystone
         registryNameField.set(this, new ResourceLocation("waystones", "waystone"));
         setUnlocalizedName(registryName.toString());
     }
-
-
-    @Override
-    @Nullable
-    public TileEntity createNewTileEntity(World world, int metadata)
-    {
-        return new TileWaystoneEdit(!getStateFromMeta(metadata).getValue(BASE));
-    }
-
-    @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
-    }
-
 
     private static void initReflections()
     {
@@ -64,5 +47,18 @@ public class BlockWaystoneEdit extends BlockWaystone
             e.printStackTrace();
             FMLCommonHandler.instance().exitJava(200, true);
         }
+    }
+
+    @Override
+    @Nullable
+    public TileEntity createNewTileEntity(World world, int metadata)
+    {
+        return new TileWaystoneEdit(!getStateFromMeta(metadata).getValue(BASE));
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
+        return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
     }
 }
