@@ -3,6 +3,8 @@ package com.fantasticsource.waystoneadditions;
 import net.blay09.mods.waystones.block.BlockWaystone;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.stats.StatBase;
+import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -22,6 +24,9 @@ public class BlockWaystoneEdit extends BlockWaystone
     {
         initReflections();
     }
+
+
+    private static final StatBase WAYSTONE_ACTIVATED = StatList.getOneShotStat("stat.waystones:waystonesActivated");
 
 
     public BlockWaystoneEdit() throws IllegalAccessException
