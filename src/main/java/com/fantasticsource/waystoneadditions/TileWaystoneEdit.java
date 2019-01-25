@@ -40,7 +40,6 @@ public class TileWaystoneEdit extends TileWaystone
 
     public TileWaystoneEdit(boolean isDummy)
     {
-        super(isDummy);
         this.isDummy = isDummy;
     }
 
@@ -97,7 +96,6 @@ public class TileWaystoneEdit extends TileWaystone
     @Override
     public void readFromNBT(NBTTagCompound tagCompound)
     {
-        super.readFromNBT(tagCompound);
         isDummy = tagCompound.getBoolean("IsDummy");
         if (!isDummy)
         {
@@ -114,7 +112,6 @@ public class TileWaystoneEdit extends TileWaystone
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
     {
-        super.onDataPacket(net, pkt);
         generateNameIfNecessary();
         readFromNBT(pkt.getNbtCompound());
     }
