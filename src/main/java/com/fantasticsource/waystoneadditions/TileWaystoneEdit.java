@@ -38,9 +38,14 @@ public class TileWaystoneEdit extends TileWaystone
     private boolean wasGenerated = true;
     private boolean isMossy;
 
-    public TileWaystoneEdit(boolean isDummy)
+    public TileWaystoneEdit(boolean isDummy, boolean serverSide)
     {
         this.isDummy = isDummy;
+
+        if (isDummy && serverSide)
+        {
+            //TODO
+        }
     }
 
     private static void initReflections()

@@ -53,7 +53,7 @@ public class BlockWaystoneEdit extends BlockWaystone
     @Nullable
     public TileEntity createNewTileEntity(World world, int metadata)
     {
-        return new TileWaystoneEdit(!getStateFromMeta(metadata).getValue(BASE));
+        return new TileWaystoneEdit(!getStateFromMeta(metadata).getValue(BASE), !world.isRemote);
     }
 
     @Override
