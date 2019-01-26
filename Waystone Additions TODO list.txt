@@ -1,9 +1,13 @@
-Fix waystones being detected as unactivated by client after someone else renames them (Waystones core bug)
+Fix waystones being renamable by non-owners when "only owner can rename" option is enabled (Waystones core bug)...
+...does this only happen on integrated server, or does it also happen on dedicated?
+...is the ownership bugged, or is the permission check bugged?
 
-Fix waystones being renamable by non-owners when "only owner can rename" option is enabled (Waystones core bug)
-
-Implement config options
+Implement existing config options
 
 Add renders for protected zones
 
-Add a way to lay siege to a waystone (from outside the block protection zone)
+Add a way to lay siege to a waystone (from outside the block and pvp protection zones; disallow this feature inside said zones)...
+...do this by placing other waystones in a certain pattern around the one you're trying to take over
+...all waystones in the assimilation formation must have the same owner
+
+Fix waystones being detected as unactivated by client after someone else renames them (Waystones core bug)
