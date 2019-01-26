@@ -1,3 +1,7 @@
+Fix waystones being detected as unactivated by client after someone else renames them (Waystones core bug)
+
+Fix waystones being renamable by non-owners when "only owner can rename" option is enabled (Waystones core bug)
+
 Implement config options
 
 Add renders for protected zones
