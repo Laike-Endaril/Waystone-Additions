@@ -171,6 +171,7 @@ public class TileWaystoneEdit extends TileWaystone
 
     public boolean isOwner(EntityPlayer player)
     {
+        System.out.println((owner == null) + ", " + player.getGameProfile().getId().equals(owner) + ", " + player.capabilities.isCreativeMode);
         return owner == null || player.getGameProfile().getId().equals(owner) || player.capabilities.isCreativeMode;
     }
 

@@ -1,8 +1,11 @@
+TileWaystone.isOwner() is being called instead of TileWaystoneEdit.isOwner()
+
 Fix waystones being renamable by non-owners when "only owner can rename" option is enabled (Waystones core bug)...
 ...does this only happen on integrated server, or does it also happen on dedicated?
 ...is the ownership bugged, or is the permission check bugged?
 
-Implement existing config options
+Implement existing config options...
+...keep world.loadedTileEntities in mind
 
 Add renders for protected zones
 
