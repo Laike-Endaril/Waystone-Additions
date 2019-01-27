@@ -61,17 +61,12 @@ public class BlockWaystoneEdit extends BlockWaystone
     @Nullable
     public TileEntity createNewTileEntity(World world, int metadata)
     {
-        return new TileWaystoneEdit(!getStateFromMeta(metadata).getValue(BASE), !world.isRemote);
+        return new TileWaystoneEdit(!getStateFromMeta(metadata).getValue(BASE));
     }
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        for (TileEntity tileEntity : world.loadedTileEntityList)
-        {
-            if (tileEntity instanceof TileWaystone) System.out.println(tileEntity.getClass().getSimpleName());
-        }
-
         TileWaystone tileWaystone = getTileWaystone(world, pos);
         if (tileWaystone == null) return true;
 

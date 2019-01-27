@@ -1,8 +1,7 @@
-Right now the server-side loads existing waystone TEs as TileWaystone instead of TileWaystoneEdit...
-...because I didn't replace the registry entry for the TE
-
 Implement existing config options...
 ...keep world.loadedTileEntities in mind
+
+Change "can only be renamed by whoever placed them" to "can only be renamed by their owner or in creative mode"
 
 Add renders for protected zones
 
