@@ -38,6 +38,10 @@ public class TileWaystoneEdit extends TileWaystone
     private boolean wasGenerated = true;
     private boolean isMossy;
 
+    public TileWaystoneEdit()
+    {
+    }
+
     public TileWaystoneEdit(boolean isDummy, boolean serverSide)
     {
         this.isDummy = isDummy;
@@ -167,6 +171,11 @@ public class TileWaystoneEdit extends TileWaystone
         IBlockState state = world.getBlockState(pos);
         world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, state, 3);
         markDirty();
+    }
+
+    public UUID getOwner()
+    {
+        return owner;
     }
 
     public boolean isOwner(EntityPlayer player)

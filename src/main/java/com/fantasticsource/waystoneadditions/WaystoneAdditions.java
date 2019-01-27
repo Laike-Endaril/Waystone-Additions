@@ -4,6 +4,7 @@ import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
@@ -80,5 +82,8 @@ public class WaystoneAdditions
     public void preInit(FMLPreInitializationEvent event)
     {
         logger = event.getModLog();
+
+        //TODO uncomment the line below and then fix freaking everything
+//        GameRegistry.registerTileEntity(TileWaystoneEdit.class, new ResourceLocation("waystones", "waystone"));
     }
 }
