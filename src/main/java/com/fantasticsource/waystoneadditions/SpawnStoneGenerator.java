@@ -33,21 +33,20 @@ public class SpawnStoneGenerator implements IWorldGenerator
         world.setBlockState(pos, Waystones.blockWaystone.getDefaultState().withProperty(BlockWaystone.BASE, true).withProperty(BlockWaystone.FACING, EnumFacing.SOUTH), 2);
         world.setBlockState(posUp, Waystones.blockWaystone.getDefaultState().withProperty(BlockWaystone.BASE, false).withProperty(BlockWaystone.FACING, EnumFacing.SOUTH), 2);
 
-        TileWaystoneEdit tileWaystone = (TileWaystoneEdit) world.getTileEntity(pos);
-        WaystoneEntry waystoneEntry = new WaystoneEntry(tileWaystone);
 
         //Set global
+        TileWaystoneEdit tileWaystone = (TileWaystoneEdit) world.getTileEntity(pos);
+        tileWaystone.isSpawnstone = true;
         tileWaystone.setGlobal(true);
+        tileWaystone.setWaystoneName(WaystoneAdditionsConfig.serverSettings.spawnstone.spawnstoneName);
+
+        WaystoneEntry waystoneEntry = new WaystoneEntry(tileWaystone);
         waystoneEntry.setGlobal(true);
+
         GlobalWaystones.get(world).addGlobalWaystone(waystoneEntry);
         for (Object obj : FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayers())
         {
             WaystoneManager.sendPlayerWaystones((EntityPlayer) obj);
         }
-
-        tileWaystone.setWaystoneName(WaystoneAdditionsConfig.serverSettings.spawnstone.spawnstoneName);
-        tileWaystone.isSpawnstone = true;
     }
-
-
 }
