@@ -1,6 +1,7 @@
 package com.fantasticsource.waystoneadditions;
 
 import net.blay09.mods.waystones.block.TileWaystone;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.lang.reflect.Field;
@@ -16,6 +17,8 @@ public class TileWaystoneEdit extends TileWaystone
     }
 
 
+    public boolean isSpawnstone = false;
+
     public TileWaystoneEdit()
     {
         super();
@@ -26,6 +29,25 @@ public class TileWaystoneEdit extends TileWaystone
         super(isDummy);
     }
 
+    public TileWaystoneEdit(boolean isDummy, boolean isSpawnstone)
+    {
+        super(isDummy);
+        this.isSpawnstone = isSpawnstone;
+    }
+
+    private static void initReflections()
+    {
+        try
+        {
+            ownerField = TileWaystone.class.getDeclaredField("owner");
+            ownerField.setAccessible(true);
+        }
+        catch (NoSuchFieldException e)
+        {
+            FMLCommonHandler.instance().exitJava(201, true);
+            e.printStackTrace();
+        }
+    }
 
     public UUID getOwner()
     {
@@ -41,18 +63,9 @@ public class TileWaystoneEdit extends TileWaystone
         return null;
     }
 
-
-    private static void initReflections()
+    @Override
+    public boolean isOwner(EntityPlayer player)
     {
-        try
-        {
-            ownerField = TileWaystone.class.getDeclaredField("owner");
-            ownerField.setAccessible(true);
-        }
-        catch (NoSuchFieldException e)
-        {
-            FMLCommonHandler.instance().exitJava(201, true);
-            e.printStackTrace();
-        }
+        return super.isOwner(player) && (!isSpawnstone || player.capabilities.isCreativeMode);
     }
 }

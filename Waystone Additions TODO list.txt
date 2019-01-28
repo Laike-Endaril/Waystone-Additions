@@ -1,3 +1,7 @@
+Make spawnstone save its spawnstoniness
+
+Make spawnstone always active for all players
+
 Implement existing config options...
 ...keep world.loadedTileEntities in mind
 

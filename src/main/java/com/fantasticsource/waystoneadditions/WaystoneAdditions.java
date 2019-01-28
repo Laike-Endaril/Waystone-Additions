@@ -74,12 +74,12 @@ public class WaystoneAdditions
 
     public static boolean isDamageProtected(Entity entity)
     {
-        return true;
+        return false; //TODO
     }
 
     public static boolean byPassesDamageProtection(Entity entity)
     {
-        return false;
+        return false; //TODO
     }
 
 
@@ -89,5 +89,6 @@ public class WaystoneAdditions
         logger = event.getModLog();
 
         GameRegistry.registerTileEntity(TileWaystoneEdit.class, new ResourceLocation("waystones", "waystone"));
+        GameRegistry.registerWorldGenerator(new SpawnStoneGenerator(), 0);
     }
 }

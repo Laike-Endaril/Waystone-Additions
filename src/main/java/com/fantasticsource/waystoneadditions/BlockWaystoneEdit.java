@@ -4,11 +4,9 @@ import net.blay09.mods.waystones.WarpMode;
 import net.blay09.mods.waystones.WaystoneConfig;
 import net.blay09.mods.waystones.Waystones;
 import net.blay09.mods.waystones.block.BlockWaystone;
-import net.blay09.mods.waystones.block.TileWaystone;
 import net.blay09.mods.waystones.client.ClientWaystones;
 import net.blay09.mods.waystones.util.WaystoneEntry;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
@@ -67,10 +65,10 @@ public class BlockWaystoneEdit extends BlockWaystone
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        TileWaystone tileWaystone = getTileWaystone(world, pos);
+        TileWaystoneEdit tileWaystone = (TileWaystoneEdit) getTileWaystone(world, pos);
         if (tileWaystone == null) return true;
 
-        if (!world.isRemote && tileWaystone.wasGenerated() && ((TileWaystoneEdit) tileWaystone).getOwner() == null)
+        if (!tileWaystone.isSpawnstone && !world.isRemote && tileWaystone.wasGenerated() && tileWaystone.getOwner() == null)
         {
             if (tileWaystone.isMossy())
             {
@@ -103,7 +101,7 @@ public class BlockWaystoneEdit extends BlockWaystone
             Waystones.proxy.openWaystoneSettings(player, new WaystoneEntry(tileWaystone.getParent()), false);
             return true;
         }
-System.out.println(world.isRemote ? "Client" : "Server");
+
         WaystoneEntry knownWaystone = world.isRemote ? ClientWaystones.getKnownWaystone(tileWaystone.getWaystoneName()) : null;
         if (knownWaystone == null)
         {
