@@ -1,7 +1,7 @@
 Implement existing config options...
 ...keep world.loadedTileEntities in mind
 
-Change "can only be renamed by whoever placed them" to "can only be renamed by their owner or in creative mode"
+Change "can only be renamed by whoever placed them" to "can only be renamed by their owner"
 
 Add renders for protected zones
 
@@ -9,4 +9,25 @@ Add a way to lay siege to a waystone (from outside the block and pvp protection 
 ...do this by placing other waystones in a certain pattern around the one you're trying to take over
 ...all waystones in the assimilation formation must have the same owner
 
+Add option for naturally generating waystones in other dimensions
+
+Add chameleon waystones (take on the texture of the block below them)
+
+Add option for whether waystones drop their item upon being broken
+
+Add grouped waystones (only link to waystones in the same group; group defined by which runes are lit)
+
+Add entry stones (can teleport from but not to) and exit stones (can teleport to but not from)
+
+Add waystone -> waystone teleportation chargeup, damage interruption, and other settings similar to those for the warp stone
+
+Option for whether you select your destination before or after chargeup
+Option for whether the waystone being teleported to shows a particle effect when someone is charging up to teleport to it (choice before chargeup must be set to true)
+
+Add corrupted waystones (look like normal waystones with a slight difference, never lit, instantly teleport you somewhere when right clicked)
+...corrupted waystone dimension directions (array of from -> to dimension ids; if teleporting to dimension with different travel multiplier, account for it)
+...corrupted waystone inner teleport radius
+...corrupted waystone outer teleport radius
+
 Fix waystones being detected as unactivated by client after someone else renames them (Waystones core bug)
+
