@@ -2,6 +2,7 @@ package com.fantasticsource.waystoneadditions;
 
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.lang.reflect.Field;
@@ -67,5 +68,20 @@ public class TileWaystoneEdit extends TileWaystone
     public boolean isOwner(EntityPlayer player)
     {
         return super.isOwner(player) && (!isSpawnstone || player.capabilities.isCreativeMode);
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound)
+    {
+        compound = super.writeToNBT(compound);
+        compound.setBoolean("spawnstone", isSpawnstone);
+        return compound;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound)
+    {
+        super.readFromNBT(compound);
+        isSpawnstone = compound.getBoolean("spawnstone");
     }
 }

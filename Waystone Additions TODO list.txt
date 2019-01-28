@@ -1,6 +1,4 @@
-Make spawnstone save its spawnstoniness
-
-Make spawnstone always active for all players
+Make spawnstone correctly show that it is active and correctly show its name in list when a player joins
 
 Implement existing config options...
 ...keep world.loadedTileEntities in mind
