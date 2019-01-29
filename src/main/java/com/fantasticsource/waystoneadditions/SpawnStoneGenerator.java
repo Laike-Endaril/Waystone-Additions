@@ -6,6 +6,7 @@ import net.blay09.mods.waystones.Waystones;
 import net.blay09.mods.waystones.block.BlockWaystone;
 import net.blay09.mods.waystones.util.WaystoneEntry;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -25,17 +26,25 @@ public class SpawnStoneGenerator implements IWorldGenerator
         if (!WaystoneAdditionsConfig.serverSettings.spawnstone.enabled || world.provider.getDimension() != 0) return;
 
         BlockPos pos = world.getTopSolidOrLiquidBlock(world.getSpawnPoint()).north();
+        BlockPos pos2 = world.getTopSolidOrLiquidBlock(pos);
+
         Chunk chunk = world.getChunkFromBlockCoords(pos);
         if (world.getChunkFromChunkCoords(chunkX, chunkZ) != chunk) return;
 
-        BlockPos posUp = pos.up();
-
         world.setBlockState(pos, Waystones.blockWaystone.getDefaultState().withProperty(BlockWaystone.BASE, true).withProperty(BlockWaystone.FACING, EnumFacing.SOUTH), 2);
-        world.setBlockState(posUp, Waystones.blockWaystone.getDefaultState().withProperty(BlockWaystone.BASE, false).withProperty(BlockWaystone.FACING, EnumFacing.SOUTH), 2);
+        world.setBlockState(pos.up(), Waystones.blockWaystone.getDefaultState().withProperty(BlockWaystone.BASE, false).withProperty(BlockWaystone.FACING, EnumFacing.SOUTH), 2);
+        TileWaystoneEdit tileWaystone = (TileWaystoneEdit) world.getTileEntity(pos); //Get TE before we change the value of pos
+
+        world.setBlockState(pos.down(), Blocks.STONE.getDefaultState());
+        pos = pos.down().down();
+        while(pos.getY() > pos2.getY())
+        {
+            world.setBlockState(pos, Blocks.STONE.getDefaultState());
+            pos = pos.down();
+        }
 
 
         //Set global
-        TileWaystoneEdit tileWaystone = (TileWaystoneEdit) world.getTileEntity(pos);
         tileWaystone.isSpawnstone = true;
         tileWaystone.setGlobal(true);
         tileWaystone.setWaystoneName(WaystoneAdditionsConfig.serverSettings.spawnstone.spawnstoneName);

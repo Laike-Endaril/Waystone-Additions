@@ -2,14 +2,11 @@ package com.fantasticsource.waystoneadditions;
 
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -36,6 +33,7 @@ public class WaystoneAdditions
     public WaystoneAdditions()
     {
         MinecraftForge.EVENT_BUS.register(WaystoneAdditions.class);
+        MinecraftForge.EVENT_BUS.register(Protection.class);
     }
 
 
@@ -50,36 +48,6 @@ public class WaystoneAdditions
     public static void registerBlocks(RegistryEvent.Register<Block> event) throws IllegalAccessException
     {
         event.getRegistry().registerAll(new BlockWaystoneEdit());
-    }
-
-
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void damage(LivingHurtEvent event)
-    {
-        Entity source = event.getSource().getTrueSource();
-        if (source == null) source = event.getSource().getImmediateSource();
-        if (source != null)
-        {
-            if (byPassesDamageProtection(source)) return;
-            if (isDamageProtected(source))
-            {
-                event.setCanceled(true);
-                return;
-            }
-        }
-
-        EntityLivingBase livingBase = event.getEntityLiving();
-        if (livingBase != null && isDamageProtected(livingBase)) event.setCanceled(true);
-    }
-
-    public static boolean isDamageProtected(Entity entity)
-    {
-        return false; //TODO
-    }
-
-    public static boolean byPassesDamageProtection(Entity entity)
-    {
-        return false; //TODO
     }
 
 

@@ -1,5 +1,4 @@
-Implement existing config options...
-...keep world.loadedTileEntities in mind
+Implement block protection
 
 Change "can only be renamed by whoever placed them" to "can only be renamed by their owner"
 
