@@ -1,4 +1,6 @@
-Implement block protection
+Make block protection work on buckets
+Make block protection work on pistons
+Make block protection work on flowing liquids
 
 Change "can only be renamed by whoever placed them" to "can only be renamed by their owner"
 

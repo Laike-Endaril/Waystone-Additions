@@ -37,7 +37,7 @@ public class SpawnStoneGenerator implements IWorldGenerator
 
         world.setBlockState(pos.down(), Blocks.STONE.getDefaultState());
         pos = pos.down().down();
-        while(pos.getY() > pos2.getY())
+        while (pos.getY() > pos2.getY())
         {
             world.setBlockState(pos, Blocks.STONE.getDefaultState());
             pos = pos.down();
