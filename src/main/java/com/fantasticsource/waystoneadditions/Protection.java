@@ -101,7 +101,7 @@ public class Protection
     {
         if (source instanceof EntityPlayer && ((EntityPlayer) source).capabilities.isCreativeMode) return false;
 
-        for (TileEntity tileEntity : target.world.loadedTileEntityList)
+        for (TileEntity tileEntity : target.world.loadedTileEntityList.toArray(new TileEntity[target.world.loadedTileEntityList.size()]))
         {
             if (tileEntity instanceof TileWaystoneEdit)
             {
@@ -153,12 +153,12 @@ public class Protection
         if (entity == null) return true;
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode) return false;
 
+        int radius;
         for (TileEntity tileEntity : entity.world.loadedTileEntityList)
         {
             if (tileEntity instanceof TileWaystoneEdit)
             {
                 TileWaystoneEdit waystone = (TileWaystoneEdit) tileEntity;
-                int radius;
 
                 if (waystone.isSpawnstone) radius = serverSettings.spawnstone.blockProtectionRadius;
                 else if (waystone.wasGenerated())

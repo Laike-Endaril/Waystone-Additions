@@ -1,3 +1,5 @@
+Make spawnstone generate waypoint
+
 Make block protection work on pistons
 
 Test psi CAD and exchanger for block protection

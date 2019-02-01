@@ -84,4 +84,27 @@ public class TileWaystoneEdit extends TileWaystone
         super.readFromNBT(compound);
         isSpawnstone = compound.getBoolean("spawnstone");
     }
+
+    public boolean isDummy()
+    {
+        return getParent() != this;
+    }
+
+    @Override
+    public boolean isGlobal()
+    {
+        return isDummy() ? getParent().isGlobal() : super.isGlobal();
+    }
+
+    @Override
+    public boolean isMossy()
+    {
+        return isDummy() ? getParent().isMossy() : super.isMossy();
+    }
+
+    @Override
+    public boolean wasGenerated()
+    {
+        return isDummy() ? getParent().wasGenerated() : super.wasGenerated();
+    }
 }
