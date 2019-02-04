@@ -3,6 +3,9 @@ package com.fantasticsource.waystoneadditions;
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -10,6 +13,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
+
+import java.util.UUID;
 
 import static com.fantasticsource.waystoneadditions.config.WaystoneAdditionsConfig.serverSettings;
 
@@ -22,6 +27,75 @@ public class Network
     public static void init()
     {
         WRAPPER.registerMessage(ConfigPacketHandler.class, ConfigPacket.class, discriminator++, Side.CLIENT);
+        WRAPPER.registerMessage(WaystonePacketHandler.class, WaystonePacket.class, discriminator++, Side.CLIENT);
+    }
+
+
+    public static class WaystonePacket implements IMessage
+    {
+        private TileWaystoneEdit waystone;
+        private int x, y, z;
+
+        private UUID owner;
+        private BlockPos pos;
+
+        public WaystonePacket()
+        {
+
+        }
+
+        public WaystonePacket(TileWaystoneEdit waystone)
+        {
+            this.waystone = waystone;
+        }
+
+        @Override
+        public void toBytes(ByteBuf buf)
+        {
+            BlockPos pos = waystone.getPos();
+            buf.writeInt(pos.getX());
+            buf.writeInt(pos.getY());
+            buf.writeInt(pos.getZ());
+
+            UUID owner = waystone.getOwner();
+            buf.writeBoolean(owner != null);
+            if (owner != null)
+            {
+                buf.writeLong(owner.getMostSignificantBits());
+                buf.writeLong(owner.getLeastSignificantBits());
+            }
+        }
+
+        @Override
+        public void fromBytes(ByteBuf buf)
+        {
+            pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
+            if (buf.readBoolean()) owner = new UUID(buf.readLong(), buf.readLong());
+            else owner = null;
+        }
+    }
+
+    public static class WaystonePacketHandler implements IMessageHandler<WaystonePacket, IMessage>
+    {
+        @Override
+        public IMessage onMessage(WaystonePacket packet, MessageContext ctx)
+        {
+            if (ctx.side == Side.CLIENT)
+            {
+                Minecraft.getMinecraft().addScheduledTask(() ->
+                {
+                    EntityPlayer player = Minecraft.getMinecraft().player;
+                    World world = player.world;
+                    TileWaystoneEdit waystone = (TileWaystoneEdit) world.getTileEntity(packet.pos);
+                    if (waystone != null)
+                    {
+                        waystone.setOwnerDirect(packet.owner);
+                    }
+                });
+            }
+
+            return null;
+        }
     }
 
 

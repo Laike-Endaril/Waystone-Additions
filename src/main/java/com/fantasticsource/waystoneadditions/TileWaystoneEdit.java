@@ -68,7 +68,19 @@ public class TileWaystoneEdit extends TileWaystone
     public void setOwner(EntityPlayer owner)
     {
         super.setOwner(owner);
+    }
 
+    public void setOwnerDirect(UUID owner)
+    {
+        try
+        {
+            ownerField.set(this, owner);
+        }
+        catch (IllegalAccessException e)
+        {
+            e.printStackTrace();
+            FMLCommonHandler.instance().exitJava(203, false);
+        }
     }
 
     @Override

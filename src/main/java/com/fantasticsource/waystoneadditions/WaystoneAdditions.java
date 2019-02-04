@@ -1,10 +1,10 @@
 package com.fantasticsource.waystoneadditions;
 
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
-import net.blay09.mods.waystones.WaystoneManager;
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -50,7 +50,7 @@ public class WaystoneAdditions
     {
         for (EntityPlayer player : waystone.getWorld().playerEntities)
         {
-            WaystoneManager.sendPlayerWaystones(player);
+            Network.WRAPPER.sendTo(new Network.WaystonePacket(waystone), (EntityPlayerMP) player);
         }
     }
 

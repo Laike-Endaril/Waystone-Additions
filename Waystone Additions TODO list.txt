@@ -1,6 +1,3 @@
-Fix client owner sync...again?
-
-
 Make "Lock Settings" option; if true, you only get to set waystone settings ONCE (default true)
 
 For non-players, make it only prevent entity damage, not environmental damage

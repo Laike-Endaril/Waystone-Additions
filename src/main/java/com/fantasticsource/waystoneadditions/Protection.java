@@ -213,8 +213,6 @@ public class Protection
                     System.out.println(waystone.getPos());
                     System.out.println(entity.getUniqueID().equals(waystone.getOwner()));
                     System.out.println(entity.getUniqueID().equals(waystone.getParent().getOwner()));
-                    System.out.println(radius);
-                    System.out.println(SyncedConfig.naturalMossyOwnerCanBuild);
                     System.out.println("===============================");
 
                     return true;
