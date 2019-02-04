@@ -1,5 +1,6 @@
 package com.fantasticsource.waystoneadditions;
 
+import com.fantasticsource.waystoneadditions.config.WaystoneAdditionsConfig;
 import net.blay09.mods.waystones.GlobalWaystones;
 import net.blay09.mods.waystones.WaystoneManager;
 import net.blay09.mods.waystones.Waystones;

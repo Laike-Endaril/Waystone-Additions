@@ -1,15 +1,13 @@
 package com.fantasticsource.waystoneadditions;
 
+import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import net.blay09.mods.waystones.WaystoneManager;
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -36,13 +34,7 @@ public class WaystoneAdditions
     {
         MinecraftForge.EVENT_BUS.register(WaystoneAdditions.class);
         MinecraftForge.EVENT_BUS.register(Protection.class);
-    }
-
-
-    @SubscribeEvent
-    public static void saveConfig(ConfigChangedEvent.OnConfigChangedEvent event)
-    {
-        if (event.getModID().equals(MODID)) ConfigManager.sync(MODID, Config.Type.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(SyncedConfig.class);
     }
 
 

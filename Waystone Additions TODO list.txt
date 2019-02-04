@@ -1,8 +1,10 @@
+Double check all protections before adding back in client detection
+
 Sync protection settings to client-side on...
 ...join
 ...configSave()
 
-Use synced settings for client-side protection detection
+Use synced settings for client-side protection detection, for the nice
 
 
 

@@ -1,5 +1,6 @@
 package com.fantasticsource.waystoneadditions;
 
+import com.fantasticsource.waystoneadditions.config.WaystoneAdditionsConfig;
 import net.blay09.mods.waystones.WarpMode;
 import net.blay09.mods.waystones.WaystoneConfig;
 import net.blay09.mods.waystones.Waystones;

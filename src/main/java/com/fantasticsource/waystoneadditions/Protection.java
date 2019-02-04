@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
 
-import static com.fantasticsource.waystoneadditions.WaystoneAdditionsConfig.serverSettings;
+import static com.fantasticsource.waystoneadditions.config.WaystoneAdditionsConfig.serverSettings;
 
 public class Protection
 {

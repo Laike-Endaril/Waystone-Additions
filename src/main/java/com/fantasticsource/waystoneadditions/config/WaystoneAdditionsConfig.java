@@ -1,5 +1,6 @@
-package com.fantasticsource.waystoneadditions;
+package com.fantasticsource.waystoneadditions.config;
 
+import com.fantasticsource.waystoneadditions.WaystoneAdditions;
 import net.minecraftforge.common.config.Config;
 
 @Config(modid = WaystoneAdditions.MODID)
