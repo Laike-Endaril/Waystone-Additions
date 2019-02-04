@@ -83,7 +83,7 @@ public class BlockWaystoneEdit extends BlockWaystone
 
         if (player.isSneaking() && (player.capabilities.isCreativeMode || !WaystoneConfig.general.creativeModeOnly))
         {
-            if (!world.isRemote)
+            if (!world.isRemote) //TODO see if removing this line disables gui when sneak-right clicking unowned waystone
             {
                 if (WaystoneConfig.general.restrictRenameToOwner && !tileWaystone.isOwner(player))
                 {

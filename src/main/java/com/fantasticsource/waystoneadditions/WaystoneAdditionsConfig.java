@@ -28,7 +28,7 @@ public class WaystoneAdditionsConfig
 
             @Config.Name("Damage Protection Radius")
             @Config.Comment("Damage is disabled in this radius around the spawnstone")
-            public int damageProtectionRadius = 75;
+            public int damageProtectionRadius = 65;
 
             @Config.Name("Enable Spawnstone")
             @Config.Comment("If enabled, a global waystone always generates at natural spawn")
@@ -44,6 +44,7 @@ public class WaystoneAdditionsConfig
             @Config.Name("Global Waystones")
             @Config.Comment("Options for global waystones")
             public GlobalWaystones global = new GlobalWaystones();
+
             @Config.Name("Non-Global Waystones")
             @Config.Comment("Options for non-global waystones")
             public NonGlobalWaytones nonGlobal = new NonGlobalWaytones();
@@ -56,7 +57,7 @@ public class WaystoneAdditionsConfig
 
                 @Config.Name("Damage Protection Radius")
                 @Config.Comment("Damage is disabled in this radius around the spawnstone")
-                public int damageProtectionRadius = 30;
+                public int damageProtectionRadius = 20;
 
                 @Config.Name("Owner Can Build")
                 @Config.Comment("If set to true, the waystone owner can build inside the protected zone")

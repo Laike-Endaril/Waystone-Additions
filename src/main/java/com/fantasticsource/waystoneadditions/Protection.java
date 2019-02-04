@@ -16,6 +16,8 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.List;
+
 import static com.fantasticsource.waystoneadditions.WaystoneAdditionsConfig.serverSettings;
 
 public class Protection
@@ -99,103 +101,126 @@ public class Protection
 
     private static boolean isDamageProtected(EntityLivingBase target, Entity source)
     {
-        if (source instanceof EntityPlayer && ((EntityPlayer) source).capabilities.isCreativeMode) return false;
-
-        for (TileEntity tileEntity : target.world.loadedTileEntityList.toArray(new TileEntity[target.world.loadedTileEntityList.size()]))
+        if (target.world.isRemote)
         {
-            if (tileEntity instanceof TileWaystoneEdit)
-            {
-                TileWaystoneEdit waystone = (TileWaystoneEdit) tileEntity;
-                int radius;
-
-                if (waystone.isSpawnstone) radius = serverSettings.spawnstone.damageProtectionRadius;
-                else if (waystone.wasGenerated())
-                {
-                    if (waystone.isMossy())
-                    {
-                        if (serverSettings.natural.mossy.ownerCanKill && source != null && source.getUniqueID().equals(waystone.getOwner())) radius = -1;
-                        else radius = serverSettings.natural.mossy.damageProtectionRadius;
-                    }
-                    else
-                    {
-                        if (serverSettings.natural.smooth.ownerCanKill && source != null && source.getUniqueID().equals(waystone.getOwner())) radius = -1;
-                        else radius = serverSettings.natural.smooth.damageProtectionRadius;
-                    }
-                }
-                else
-                {
-                    if (waystone.isGlobal())
-                    {
-                        if (serverSettings.placed.global.ownerCanKill && source != null && source.getUniqueID().equals(waystone.getOwner())) radius = -1;
-                        else radius = serverSettings.placed.global.damageProtectionRadius;
-                    }
-                    else
-                    {
-                        if (serverSettings.placed.nonGlobal.ownerCanKill && source != null && source.getUniqueID().equals(waystone.getOwner())) radius = -1;
-                        else radius = serverSettings.placed.nonGlobal.damageProtectionRadius;
-                    }
-                }
-
-                if (radius < 1) continue;
-
-                BlockPos pos1 = target.getPosition();
-                BlockPos pos2 = waystone.getPos();
-
-                if (Math.abs(pos1.getX() - pos2.getX()) <= radius && Math.abs(pos1.getY() - pos2.getY()) <= radius && Math.abs(pos1.getZ() - pos2.getZ()) <= radius) return true;
-            }
+            return false;
         }
+        else
+        {
+            if (source instanceof EntityPlayer && ((EntityPlayer) source).capabilities.isCreativeMode) return false;
 
-        return false;
+            List<TileEntity> list = target.world.loadedTileEntityList;
+            for (TileEntity tileEntity : list.toArray(new TileEntity[list.size()]))
+            {
+                if (tileEntity instanceof TileWaystoneEdit)
+                {
+                    TileWaystoneEdit waystone = (TileWaystoneEdit) tileEntity;
+                    int radius;
+
+                    if (waystone.isSpawnstone) radius = serverSettings.spawnstone.damageProtectionRadius;
+                    else if (waystone.wasGenerated())
+                    {
+                        if (waystone.isMossy())
+                        {
+                            if (serverSettings.natural.mossy.ownerCanKill && source != null && source.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                            else radius = serverSettings.natural.mossy.damageProtectionRadius;
+                        }
+                        else
+                        {
+                            if (serverSettings.natural.smooth.ownerCanKill && source != null && source.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                            else radius = serverSettings.natural.smooth.damageProtectionRadius;
+                        }
+                    }
+                    else
+                    {
+                        if (waystone.isGlobal())
+                        {
+                            if (serverSettings.placed.global.ownerCanKill && source != null && source.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                            else radius = serverSettings.placed.global.damageProtectionRadius;
+                        }
+                        else
+                        {
+                            if (serverSettings.placed.nonGlobal.ownerCanKill && source != null && source.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                            else radius = serverSettings.placed.nonGlobal.damageProtectionRadius;
+                        }
+                    }
+
+                    if (radius < 1) continue;
+
+                    BlockPos pos1 = target.getPosition();
+                    BlockPos pos2 = waystone.getPos();
+
+                    if (Math.abs(pos1.getX() - pos2.getX()) <= radius && Math.abs(pos1.getY() - pos2.getY()) <= radius && Math.abs(pos1.getZ() - pos2.getZ()) <= radius) return true;
+                }
+            }
+
+            return false;
+        }
     }
 
     private static boolean isBuildProtected(BlockPos pos, Entity entity)
     {
-        if (entity == null) return true;
-        if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode) return false;
-
-        int radius;
-        for (TileEntity tileEntity : entity.world.loadedTileEntityList)
+        if (entity.world.isRemote)
         {
-            if (tileEntity instanceof TileWaystoneEdit)
-            {
-                TileWaystoneEdit waystone = (TileWaystoneEdit) tileEntity;
-
-                if (waystone.isSpawnstone) radius = serverSettings.spawnstone.blockProtectionRadius;
-                else if (waystone.wasGenerated())
-                {
-                    if (waystone.isMossy())
-                    {
-                        if (serverSettings.natural.mossy.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
-                        else radius = serverSettings.natural.mossy.blockProtectionRadius;
-                    }
-                    else
-                    {
-                        if (serverSettings.natural.smooth.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
-                        else radius = serverSettings.natural.smooth.blockProtectionRadius;
-                    }
-                }
-                else
-                {
-                    if (waystone.isGlobal())
-                    {
-                        if (serverSettings.placed.global.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
-                        else radius = serverSettings.placed.global.blockProtectionRadius;
-                    }
-                    else
-                    {
-                        if (serverSettings.placed.nonGlobal.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
-                        else radius = serverSettings.placed.nonGlobal.blockProtectionRadius;
-                    }
-                }
-
-                if (radius < 1) continue;
-
-                BlockPos pos2 = waystone.getPos();
-
-                if (Math.abs(pos.getX() - pos2.getX()) <= radius && Math.abs(pos.getY() - pos2.getY()) <= radius && Math.abs(pos.getZ() - pos2.getZ()) <= radius) return true;
-            }
+            return false;
         }
+        else
+        {
+            if (entity == null) return true;
+            if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode) return false;
 
-        return false;
+            int radius;
+            List<TileEntity> list = entity.world.loadedTileEntityList;
+            for (TileEntity tileEntity : list.toArray(new TileEntity[list.size()]))
+            {
+                if (tileEntity instanceof TileWaystoneEdit)
+                {
+                    TileWaystoneEdit waystone = (TileWaystoneEdit) tileEntity;
+
+                    if (waystone.isSpawnstone) radius = serverSettings.spawnstone.blockProtectionRadius;
+                    else if (waystone.wasGenerated())
+                    {
+                        if (waystone.isMossy())
+                        {
+                            if (serverSettings.natural.mossy.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                            else radius = serverSettings.natural.mossy.blockProtectionRadius;
+                        }
+                        else
+                        {
+                            if (serverSettings.natural.smooth.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                            else radius = serverSettings.natural.smooth.blockProtectionRadius;
+                        }
+                    }
+                    else
+                    {
+                        if (waystone.isGlobal())
+                        {
+                            if (serverSettings.placed.global.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                            else radius = serverSettings.placed.global.blockProtectionRadius;
+                        }
+                        else
+                        {
+                            if (serverSettings.placed.nonGlobal.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                            else radius = serverSettings.placed.nonGlobal.blockProtectionRadius;
+                        }
+                    }
+
+                    if (radius < 1) continue;
+
+                    BlockPos pos2 = waystone.getPos();
+
+                    if (Math.abs(pos.getX() - pos2.getX()) <= radius && Math.abs(pos.getY() - pos2.getY()) <= radius && Math.abs(pos.getZ() - pos2.getZ()) <= radius)
+                    {
+                        System.out.println(waystone.getPos());
+                        System.out.println(entity.getUniqueID().equals(waystone.getOwner()));
+                        System.out.println(entity.getUniqueID().equals(waystone.getParent().getOwner()));
+                        System.out.println("============================");
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }

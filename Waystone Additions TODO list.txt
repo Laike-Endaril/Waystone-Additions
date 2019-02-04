@@ -1,4 +1,12 @@
+If the client hack-breaks blocks in a protected zone, the server keeps attempting the change forever until it's an acceptable change
+
+Client-side owner changes are not being detected correctly until after NBT load
+
+Make "Lock Settings" option; if true, you only get to set waystone settings ONCE (default true)
+
 For non-players, make it only prevent entity damage, not environmental damage
+
+For players, remove knockback from non-players in damage protected zones
 
 Make spawnstone generate waypoint
 
