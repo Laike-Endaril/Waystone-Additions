@@ -1,4 +1,10 @@
-Client-side owner changes are not being detected correctly until after NBT load
+Sync protection settings to client-side on...
+...join
+...configSave()
+
+Use synced settings for client-side protection detection
+
+
 
 Make "Lock Settings" option; if true, you only get to set waystone settings ONCE (default true)
 

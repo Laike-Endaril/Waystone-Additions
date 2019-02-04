@@ -1,7 +1,9 @@
 package com.fantasticsource.waystoneadditions;
 
+import net.blay09.mods.waystones.WaystoneManager;
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
@@ -50,6 +52,13 @@ public class WaystoneAdditions
         event.getRegistry().registerAll(new BlockWaystoneEdit());
     }
 
+    public static void refreshWaystone(TileWaystoneEdit waystone)
+    {
+        for (EntityPlayer player : waystone.getWorld().playerEntities)
+        {
+            WaystoneManager.sendPlayerWaystones(player);
+        }
+    }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)

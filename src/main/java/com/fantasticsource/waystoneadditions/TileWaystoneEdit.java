@@ -65,18 +65,18 @@ public class TileWaystoneEdit extends TileWaystone
     }
 
     @Override
+    public void setOwner(EntityPlayer owner)
+    {
+        super.setOwner(owner);
+
+    }
+
+    @Override
     public boolean isOwner(EntityPlayer player)
     {
         if (player.capabilities.isCreativeMode) return true;
         UUID owner = getOwner();
         return !isSpawnstone && (owner == null || owner.equals(player.getUniqueID()));
-    }
-
-    @Override
-    public void setOwner(EntityPlayer owner)
-    {
-        super.setOwner(owner);
-
     }
 
     @Override

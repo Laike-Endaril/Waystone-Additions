@@ -72,11 +72,19 @@ public class BlockWaystoneEdit extends BlockWaystone
         {
             if (tileWaystone.isMossy())
             {
-                if (WaystoneAdditionsConfig.serverSettings.natural.mossy.finderBecomesOwner) tileWaystone.setOwner(player);
+                if (WaystoneAdditionsConfig.serverSettings.natural.mossy.finderBecomesOwner)
+                {
+                    tileWaystone.setOwner(player);
+                    WaystoneAdditions.refreshWaystone(tileWaystone);
+                }
             }
             else
             {
-                if (WaystoneAdditionsConfig.serverSettings.natural.smooth.finderBecomesOwner) tileWaystone.setOwner(player);
+                if (WaystoneAdditionsConfig.serverSettings.natural.smooth.finderBecomesOwner)
+                {
+                    tileWaystone.setOwner(player);
+                    WaystoneAdditions.refreshWaystone(tileWaystone);
+                }
             }
         }
 
