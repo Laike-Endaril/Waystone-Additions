@@ -54,7 +54,7 @@ public class TileWaystoneEdit extends TileWaystone
     {
         try
         {
-            return (UUID) ownerField.get(this);
+            return (UUID) (isDummy() ? ownerField.get(getParent()) : ownerField.get(this));
         }
         catch (IllegalAccessException e)
         {
@@ -67,7 +67,7 @@ public class TileWaystoneEdit extends TileWaystone
     @Override
     public boolean isOwner(EntityPlayer player)
     {
-        return super.isOwner(player) && (!isSpawnstone || player.capabilities.isCreativeMode);
+        return getOwner().equals(player.getUniqueID()) && (!isSpawnstone || player.capabilities.isCreativeMode);
     }
 
     @Override

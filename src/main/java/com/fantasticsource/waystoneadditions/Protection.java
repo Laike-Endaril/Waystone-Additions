@@ -165,12 +165,12 @@ public class Protection
                 {
                     if (waystone.isMossy())
                     {
-                        if (serverSettings.natural.mossy.ownerCanKill && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                        if (serverSettings.natural.mossy.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
                         else radius = serverSettings.natural.mossy.blockProtectionRadius;
                     }
                     else
                     {
-                        if (serverSettings.natural.smooth.ownerCanKill && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                        if (serverSettings.natural.smooth.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
                         else radius = serverSettings.natural.smooth.blockProtectionRadius;
                     }
                 }
@@ -178,12 +178,12 @@ public class Protection
                 {
                     if (waystone.isGlobal())
                     {
-                        if (serverSettings.placed.global.ownerCanKill && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                        if (serverSettings.placed.global.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
                         else radius = serverSettings.placed.global.blockProtectionRadius;
                     }
                     else
                     {
-                        if (serverSettings.placed.nonGlobal.ownerCanKill && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                        if (serverSettings.placed.nonGlobal.ownerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
                         else radius = serverSettings.placed.nonGlobal.blockProtectionRadius;
                     }
                 }

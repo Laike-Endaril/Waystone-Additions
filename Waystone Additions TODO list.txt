@@ -1,8 +1,11 @@
+For non-players, make it only prevent entity damage, not environmental damage
+
 Make spawnstone generate waypoint
 
 Make block protection work on pistons
 
-Test psi CAD and exchanger for block protection
+Exchangers bypass block protection; fix it
+Test psi CAD with block protection
 
 Make block protection work on flowing liquids?
 
