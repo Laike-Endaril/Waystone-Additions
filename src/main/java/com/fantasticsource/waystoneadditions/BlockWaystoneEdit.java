@@ -1,6 +1,6 @@
 package com.fantasticsource.waystoneadditions;
 
-import com.fantasticsource.waystoneadditions.config.WaystoneAdditionsConfig;
+import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import net.blay09.mods.waystones.WarpMode;
 import net.blay09.mods.waystones.WaystoneConfig;
 import net.blay09.mods.waystones.Waystones;
@@ -73,7 +73,7 @@ public class BlockWaystoneEdit extends BlockWaystone
         {
             if (tileWaystone.isMossy())
             {
-                if (WaystoneAdditionsConfig.serverSettings.natural.mossy.finderBecomesOwner)
+                if (SyncedConfig.naturalMossyFinderBecomesOwner)
                 {
                     tileWaystone.setOwner(player);
                     WaystoneAdditions.refreshWaystone(tileWaystone);
@@ -81,7 +81,7 @@ public class BlockWaystoneEdit extends BlockWaystone
             }
             else
             {
-                if (WaystoneAdditionsConfig.serverSettings.natural.smooth.finderBecomesOwner)
+                if (SyncedConfig.naturalSmoothFinderBecomesOwner)
                 {
                     tileWaystone.setOwner(player);
                     WaystoneAdditions.refreshWaystone(tileWaystone);

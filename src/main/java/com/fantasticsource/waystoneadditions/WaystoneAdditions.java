@@ -32,6 +32,8 @@ public class WaystoneAdditions
 
     public WaystoneAdditions()
     {
+        Network.init();
+
         MinecraftForge.EVENT_BUS.register(WaystoneAdditions.class);
         MinecraftForge.EVENT_BUS.register(Protection.class);
         MinecraftForge.EVENT_BUS.register(SyncedConfig.class);

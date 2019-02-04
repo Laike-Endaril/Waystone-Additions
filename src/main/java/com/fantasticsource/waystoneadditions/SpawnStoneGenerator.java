@@ -1,6 +1,6 @@
 package com.fantasticsource.waystoneadditions;
 
-import com.fantasticsource.waystoneadditions.config.WaystoneAdditionsConfig;
+import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import net.blay09.mods.waystones.GlobalWaystones;
 import net.blay09.mods.waystones.WaystoneManager;
 import net.blay09.mods.waystones.Waystones;
@@ -24,7 +24,7 @@ public class SpawnStoneGenerator implements IWorldGenerator
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
     {
-        if (!WaystoneAdditionsConfig.serverSettings.spawnstone.enabled || world.provider.getDimension() != 0) return;
+        if (!SyncedConfig.spawnstoneEnabled || world.provider.getDimension() != 0) return;
 
         BlockPos pos = world.getTopSolidOrLiquidBlock(world.getSpawnPoint()).north();
         BlockPos pos2 = world.getTopSolidOrLiquidBlock(pos);
@@ -48,7 +48,7 @@ public class SpawnStoneGenerator implements IWorldGenerator
         //Set global
         tileWaystone.isSpawnstone = true;
         tileWaystone.setGlobal(true);
-        tileWaystone.setWaystoneName(WaystoneAdditionsConfig.serverSettings.spawnstone.spawnstoneName);
+        tileWaystone.setWaystoneName(SyncedConfig.spawnstoneName);
 
         WaystoneEntry waystoneEntry = new WaystoneEntry(tileWaystone);
         waystoneEntry.setGlobal(true);
