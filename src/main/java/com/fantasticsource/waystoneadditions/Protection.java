@@ -36,7 +36,7 @@ public class Protection
 
 
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-    public static void blockBreakSpeedOverride(PlayerEvent.BreakSpeed event)
+    public static void blockBreakSpeed(PlayerEvent.BreakSpeed event)
     {
         //This prevents the player from making progress on breaking a block instead of preventing the breaking itself; looks and acts much cleaner this way
         //It also catches instant breaking, at least in the case of punching flowers and whatnot.  Must simply use a high break speed by default
@@ -44,6 +44,18 @@ public class Protection
         {
             event.setNewSpeed(0);
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
+    public static void blockLeftClick(PlayerInteractEvent.LeftClickBlock event)
+    {
+        //This prevents the player from using an item.  Might not catch everything but when it works, it works nicely (it doesn't cause inventory desync)
+        //This does not detect buckets!  Buckets are handled in the FillBucketEvent (which should be named UseBucketEvent)
+        if (isBuildProtected(new BlockPos(event.getHitVec()), event.getEntity()))
+        {
+            event.setUseItem(Event.Result.DENY);
+            event.setUseBlock(Event.Result.DENY);
         }
     }
 
@@ -61,7 +73,7 @@ public class Protection
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-    public static void blockInteract(PlayerInteractEvent.RightClickBlock event)
+    public static void blockRightClick(PlayerInteractEvent.RightClickBlock event)
     {
         //This prevents the player from using an item.  Might not catch everything but when it works, it works nicely (it doesn't cause inventory desync)
         //This does not detect buckets!  Buckets are handled in the FillBucketEvent (which should be named UseBucketEvent)
