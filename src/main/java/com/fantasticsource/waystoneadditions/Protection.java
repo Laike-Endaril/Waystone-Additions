@@ -221,14 +221,7 @@ public class Protection
 
                     BlockPos pos2 = waystone.getPos();
 
-                    if (Math.abs(pos.getX() - pos2.getX()) <= radius && Math.abs(pos.getY() - pos2.getY()) <= radius && Math.abs(pos.getZ() - pos2.getZ()) <= radius)
-                    {
-                        System.out.println(waystone.getPos());
-                        System.out.println(entity.getUniqueID().equals(waystone.getOwner()));
-                        System.out.println(entity.getUniqueID().equals(waystone.getParent().getOwner()));
-                        System.out.println("============================");
-                        return true;
-                    }
+                    if (Math.abs(pos.getX() - pos2.getX()) <= radius && Math.abs(pos.getY() - pos2.getY()) <= radius && Math.abs(pos.getZ() - pos2.getZ()) <= radius) return true;
                 }
             }
 
