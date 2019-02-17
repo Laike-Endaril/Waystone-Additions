@@ -1,10 +1,12 @@
-Make "Lock Settings" option; if true, you only get to set waystone settings ONCE (default true)
-
-For non-players, make it only prevent entity damage, not environmental damage
-
-For players, remove knockback from non-players in damage protected zones
-
 Make spawnstone generate waypoint
+
+For players, remove knockback from non-players in damage protected zones...
+...cancel left click event?
+...still allow players to knockback mobs and other players
+
+Make mobs ignore targets in protected zones
+
+Make "Lock Settings" option; if true, you only get to set waystone settings ONCE (default true)
 
 Make block protection work on pistons
 
@@ -42,4 +44,3 @@ Add corrupted waystones (look like normal waystones with a slight difference, ne
 ...corrupted waystone outer teleport radius
 
 Fix waystones being detected as unactivated by client after someone else renames them (Waystones core bug)
-
