@@ -25,11 +25,11 @@ public class WaystoneAdditionsConfig
         {
             @Config.Name("Block Protection Radius")
             @Config.Comment("Placing/destroying/moving blocks is disabled in this radius around the spawnstone")
-            public int blockProtectionRadius = 75;
+            public int blockProtectionRadius = 50;
 
             @Config.Name("Damage Protection Radius")
             @Config.Comment("Damage is disabled in this radius around the spawnstone")
-            public int damageProtectionRadius = 65;
+            public int damageProtectionRadius = 30;
 
             @Config.Name("Enable Spawnstone")
             @Config.Comment("If enabled, a global waystone always generates at natural spawn")
@@ -130,7 +130,7 @@ public class WaystoneAdditionsConfig
             {
                 @Config.Name("Block Protection Radius")
                 @Config.Comment("Placing/destroying/moving blocks is disabled in this radius around the spawnstone")
-                public int blockProtectionRadius = 75;
+                public int blockProtectionRadius = 50;
 
                 @Config.Name("Damage Protection Radius")
                 @Config.Comment("Damage is disabled in this radius around the spawnstone")
