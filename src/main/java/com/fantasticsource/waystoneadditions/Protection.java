@@ -24,12 +24,19 @@ public class Protection
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public static void damage(LivingHurtEvent event)
     {
-        Entity source = event.getSource().getTrueSource();
-        if (source == null) source = event.getSource().getImmediateSource();
-        if (isDamageProtected(event.getEntityLiving(), source))
+        Entity entity = event.getEntity();
+        if (entity instanceof EntityPlayer)
         {
-            event.setAmount(0);
-            event.setCanceled(true);
+            EntityPlayer player = (EntityPlayer) entity;
+
+            Entity source = event.getSource().getTrueSource();
+            if (source == null) source = event.getSource().getImmediateSource();
+
+            if (isDamageProtected(player, source))
+            {
+                event.setAmount(0);
+                event.setCanceled(true);
+            }
         }
     }
 
@@ -110,7 +117,7 @@ public class Protection
     }
 
 
-    private static boolean isDamageProtected(EntityLivingBase target, Entity source)
+    private static boolean isDamageProtected(EntityPlayer target, Entity source)
     {
         if (source instanceof EntityPlayer && ((EntityPlayer) source).capabilities.isCreativeMode) return false;
 
