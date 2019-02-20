@@ -1,13 +1,10 @@
-Make spawnstone generate waypoint
-
-Make "Lock Settings" option; if true, you only get to set waystone settings ONCE (default true)
+Make "Globals are Ownerless" option; if true, global waystones cannot be owned (and therefore cannot have their settings changed)
 
 Make block protection work on pistons
 
-Exchangers bypass block protection; fix it
-Test psi CAD with block protection
-
 Make block protection work on flowing liquids?
+
+Add discoverable global waystones
 
 Change "can only be renamed by whoever placed them" to "can only be renamed by their owner"
 
