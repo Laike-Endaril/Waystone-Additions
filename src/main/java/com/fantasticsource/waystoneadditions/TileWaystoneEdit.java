@@ -1,5 +1,7 @@
 package com.fantasticsource.waystoneadditions;
 
+import com.fantasticsource.waystoneadditions.compat.Compat;
+import net.blay09.mods.waystones.WaystoneConfig;
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -34,6 +36,15 @@ public class TileWaystoneEdit extends TileWaystone
     {
         super(isDummy);
         this.isSpawnstone = isSpawnstone;
+        if (isSpawnstone && !isDummy)
+        {
+            WaystoneAdditions.spawnstone = this;
+
+            if (world.isRemote && Compat.journeymap && WaystoneConfig.compat.createJourneyMapWaypoint)
+            {
+                WaystoneWaypointHandler.makeWaystoneWaypoint(getWaystoneName(), world.provider.getDimension(), pos);
+            }
+        }
     }
 
     private static void initReflections()

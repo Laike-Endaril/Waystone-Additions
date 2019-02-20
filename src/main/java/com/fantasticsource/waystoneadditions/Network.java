@@ -1,7 +1,9 @@
 package com.fantasticsource.waystoneadditions;
 
+import com.fantasticsource.waystoneadditions.compat.Compat;
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import io.netty.buffer.ByteBuf;
+import net.blay09.mods.waystones.WaystoneConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +30,65 @@ public class Network
     {
         WRAPPER.registerMessage(ConfigPacketHandler.class, ConfigPacket.class, discriminator++, Side.CLIENT);
         WRAPPER.registerMessage(WaystonePacketHandler.class, WaystonePacket.class, discriminator++, Side.CLIENT);
+        WRAPPER.registerMessage(WaystoneWaypointPacketHandler.class, WaystoneWaypointPacket.class, discriminator++, Side.CLIENT);
+    }
+
+
+    public static class WaystoneWaypointPacket implements IMessage
+    {
+        private String name;
+        private int dimension;
+        private BlockPos pos;
+
+        public WaystoneWaypointPacket()
+        {
+
+        }
+
+        public WaystoneWaypointPacket(TileWaystoneEdit waystone)
+        {
+            name = waystone.getWaystoneName();
+            waystone.getWorld().provider.getDimension();
+            pos = waystone.getPos();
+        }
+
+        @Override
+        public void toBytes(ByteBuf buf)
+        {
+            ByteBufUtils.writeUTF8String(buf, name);
+            buf.writeInt(dimension);
+            buf.writeInt(pos.getX());
+            buf.writeInt(pos.getY());
+            buf.writeInt(pos.getZ());
+        }
+
+        @Override
+        public void fromBytes(ByteBuf buf)
+        {
+            name = ByteBufUtils.readUTF8String(buf);
+            dimension = buf.readInt();
+            pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
+        }
+    }
+
+    public static class WaystoneWaypointPacketHandler implements IMessageHandler<WaystoneWaypointPacket, IMessage>
+    {
+        @Override
+        public IMessage onMessage(WaystoneWaypointPacket packet, MessageContext ctx)
+        {
+            if (ctx.side == Side.CLIENT)
+            {
+                Minecraft.getMinecraft().addScheduledTask(() ->
+                {
+                    if (Compat.journeymap && WaystoneConfig.compat.createJourneyMapWaypoint)
+                    {
+                        WaystoneWaypointHandler.makeWaystoneWaypoint(packet.name, packet.dimension, packet.pos);
+                    }
+                });
+            }
+
+            return null;
+        }
     }
 
 

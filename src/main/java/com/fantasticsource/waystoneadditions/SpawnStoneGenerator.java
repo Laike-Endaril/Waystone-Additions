@@ -7,6 +7,7 @@ import net.blay09.mods.waystones.Waystones;
 import net.blay09.mods.waystones.block.BlockWaystone;
 import net.blay09.mods.waystones.util.WaystoneEntry;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -18,6 +19,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import java.util.Random;
+
+import static com.fantasticsource.waystoneadditions.WaystoneAdditions.spawnstone;
 
 public class SpawnStoneGenerator implements IWorldGenerator
 {
@@ -47,6 +50,8 @@ public class SpawnStoneGenerator implements IWorldGenerator
 
         //Set global
         tileWaystone.isSpawnstone = true;
+        spawnstone = tileWaystone;
+        spawnstone.setWorld(world);
         tileWaystone.setGlobal(true);
         tileWaystone.setWaystoneName(SyncedConfig.spawnstoneName);
 
@@ -54,9 +59,9 @@ public class SpawnStoneGenerator implements IWorldGenerator
         waystoneEntry.setGlobal(true);
 
         GlobalWaystones.get(world).addGlobalWaystone(waystoneEntry);
-        for (Object obj : FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayers())
+        for (EntityPlayerMP player : FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayers())
         {
-            WaystoneManager.sendPlayerWaystones((EntityPlayer) obj);
+            WaystoneManager.sendPlayerWaystones(player);
         }
     }
 }

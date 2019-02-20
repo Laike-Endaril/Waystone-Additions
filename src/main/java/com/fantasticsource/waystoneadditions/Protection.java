@@ -2,7 +2,6 @@ package com.fantasticsource.waystoneadditions;
 
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -214,16 +213,7 @@ public class Protection
 
                 BlockPos pos2 = waystone.getPos();
 
-                if (Math.abs(pos.getX() - pos2.getX()) <= radius && Math.abs(pos.getY() - pos2.getY()) <= radius && Math.abs(pos.getZ() - pos2.getZ()) <= radius)
-                {
-                    System.out.println(entity.world.isRemote ? "Client" : "Server");
-                    System.out.println(waystone.getPos());
-                    System.out.println(entity.getUniqueID().equals(waystone.getOwner()));
-                    System.out.println(entity.getUniqueID().equals(waystone.getParent().getOwner()));
-                    System.out.println("===============================");
-
-                    return true;
-                }
+                if (Math.abs(pos.getX() - pos2.getX()) <= radius && Math.abs(pos.getY() - pos2.getY()) <= radius && Math.abs(pos.getZ() - pos2.getZ()) <= radius) return true;
             }
         }
 

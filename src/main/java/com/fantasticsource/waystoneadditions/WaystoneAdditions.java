@@ -1,18 +1,24 @@
 package com.fantasticsource.waystoneadditions;
 
+import com.fantasticsource.waystoneadditions.compat.Compat;
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
@@ -21,12 +27,11 @@ import java.util.ArrayList;
 @Mod(modid = WaystoneAdditions.MODID, name = WaystoneAdditions.NAME, version = WaystoneAdditions.VERSION, dependencies = "required-after:waystones@[4.0.67,)")
 public class WaystoneAdditions
 {
-
-
     public static final String MODID = "waystoneadditions";
     public static final String NAME = "Waystone Additions";
     public static final String VERSION = "1.12.2.001";
     public static ArrayList<TileWaystone> waystones = new ArrayList<>();
+    public static TileWaystoneEdit spawnstone;
     private static Logger logger;
 
 
@@ -54,6 +59,23 @@ public class WaystoneAdditions
         }
     }
 
+    @SubscribeEvent
+    public static void playerJoinWorld(EntityJoinWorldEvent event)
+    {
+        Entity entity = event.getEntity();
+        if (entity instanceof EntityPlayerMP && !entity.world.isRemote && spawnstone != null)
+        {
+            EntityPlayerMP player = (EntityPlayerMP) entity;
+            Network.WRAPPER.sendTo(new Network.WaystoneWaypointPacket(spawnstone), player);
+        }
+    }
+
+    @SubscribeEvent
+    public static void disconnectFromServer(FMLNetworkEvent.ClientDisconnectionFromServerEvent event)
+    {
+        spawnstone = null;
+    }
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -61,5 +83,12 @@ public class WaystoneAdditions
 
         GameRegistry.registerTileEntity(TileWaystoneEdit.class, new ResourceLocation("waystones", "waystone"));
         GameRegistry.registerWorldGenerator(new SpawnStoneGenerator(), 0);
+    }
+
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        //Compat init
+        if (Loader.isModLoaded("journeymap")) Compat.journeymap = true;
     }
 }
