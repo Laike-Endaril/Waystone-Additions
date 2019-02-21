@@ -1,11 +1,5 @@
 CURRENTLY WORKING ON ==========================================
 
----
-
-
-
-BUG FIXES =====================================================
-
 Fix waystones being detected as unactivated by client after someone else renames them (Waystones core bug)
 
 Make block protection work on pistons
