@@ -1,11 +1,13 @@
-package com.fantasticsource.waystoneadditions;
+package com.fantasticsource.waystoneadditions.protection;
 
+import com.fantasticsource.waystoneadditions.TileWaystoneEdit;
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
@@ -45,7 +47,8 @@ public class Protection
     {
         //This prevents the player from making progress on breaking a block instead of preventing the breaking itself; looks and acts much cleaner this way
         //It also catches instant breaking, at least in the case of punching flowers and whatnot.  Must simply use a high break speed by default
-        if (isBuildProtected(event.getPos(), event.getEntity()))
+        Entity entity = event.getEntity();
+        if (isBuildProtected(entity.world, event.getPos(), entity))
         {
             event.setNewSpeed(0);
             event.setCanceled(true);
@@ -57,7 +60,7 @@ public class Protection
     {
         //This prevents the player from using an item.  Might not catch everything but when it works, it works nicely (it doesn't cause inventory desync)
         //This does not detect buckets!  Buckets are handled in the FillBucketEvent (which should be named UseBucketEvent)
-        if (isBuildProtected(new BlockPos(event.getHitVec()), event.getEntity()))
+        if (isBuildProtected(event.getWorld(), new BlockPos(event.getHitVec()), event.getEntity()))
         {
             event.setUseItem(Event.Result.DENY);
             event.setUseBlock(Event.Result.DENY);
@@ -70,7 +73,7 @@ public class Protection
         //Prevents bucket usage in the protected zones
         //This event is not just for filling buckets; it is also for emptying them
         RayTraceResult rayTrace = event.getTarget();
-        if (rayTrace == null || isBuildProtected(new BlockPos(rayTrace.hitVec), event.getEntity()))
+        if (rayTrace == null || isBuildProtected(event.getWorld(), new BlockPos(rayTrace.hitVec), event.getEntity()))
         {
             event.setResult(Event.Result.DENY);
             event.setCanceled(true);
@@ -82,7 +85,7 @@ public class Protection
     {
         //This prevents the player from using an item.  Might not catch everything but when it works, it works nicely (it doesn't cause inventory desync)
         //This does not detect buckets!  Buckets are handled in the FillBucketEvent (which should be named UseBucketEvent)
-        if (isBuildProtected(new BlockPos(event.getHitVec()), event.getEntity()))
+        if (isBuildProtected(event.getWorld(), new BlockPos(event.getHitVec()), event.getEntity()))
         {
             event.setUseItem(Event.Result.DENY);
             event.setUseBlock(Event.Result.ALLOW);
@@ -93,7 +96,7 @@ public class Protection
     public static void blockPlace(BlockEvent.PlaceEvent event)
     {
         //Might catch some things RightClickBlock doesn't catch, but not as nice for when blocks are placed from inventory, because it causes inventory desync
-        if (isBuildProtected(event.getPos(), event.getPlayer()))
+        if (isBuildProtected(event.getWorld(), event.getPos(), event.getPlayer()))
         {
             event.setResult(Event.Result.DENY);
             event.setCanceled(true);
@@ -106,7 +109,7 @@ public class Protection
         //I imagine this is similar to PlaceEvent, but for when multiple blocks are placed at once
         for (BlockSnapshot snapshot : event.getReplacedBlockSnapshots())
         {
-            if (isBuildProtected(snapshot.getPos(), event.getPlayer()))
+            if (isBuildProtected(snapshot.getWorld(), snapshot.getPos(), event.getPlayer()))
             {
                 event.setResult(Event.Result.DENY);
                 event.setCanceled(true);
@@ -116,7 +119,7 @@ public class Protection
     }
 
 
-    private static boolean isDamageProtected(EntityPlayer target, Entity source)
+    public static boolean isDamageProtected(EntityPlayer target, Entity source)
     {
         if (source instanceof EntityPlayer && ((EntityPlayer) source).capabilities.isCreativeMode) return false;
 
@@ -168,13 +171,12 @@ public class Protection
         return false;
     }
 
-    private static boolean isBuildProtected(BlockPos pos, Entity entity)
+    public static boolean isBuildProtected(World world, BlockPos pos, Entity entity)
     {
-        if (entity == null) return true;
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode) return false;
 
         int radius;
-        List<TileEntity> list = entity.world.loadedTileEntityList;
+        List<TileEntity> list = world.loadedTileEntityList;
         for (TileEntity tileEntity : list.toArray(new TileEntity[list.size()]))
         {
             if (tileEntity instanceof TileWaystoneEdit)
@@ -186,12 +188,12 @@ public class Protection
                 {
                     if (waystone.isMossy())
                     {
-                        if (SyncedConfig.naturalMossyOwnerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                        if (SyncedConfig.naturalMossyOwnerCanBuild && entity != null && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
                         else radius = SyncedConfig.naturalMossyBlockProtectionRadius;
                     }
                     else
                     {
-                        if (SyncedConfig.naturalSmoothOwnerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                        if (SyncedConfig.naturalSmoothOwnerCanBuild && entity != null && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
                         else radius = SyncedConfig.naturalSmoothBlockProtectionRadius;
                     }
                 }
@@ -199,12 +201,12 @@ public class Protection
                 {
                     if (waystone.isGlobal())
                     {
-                        if (SyncedConfig.placedGlobalOwnerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                        if (SyncedConfig.placedGlobalOwnerCanBuild && entity != null && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
                         else radius = SyncedConfig.placedGlobalBlockProtectionRadius;
                     }
                     else
                     {
-                        if (SyncedConfig.placedNonGlobalOwnerCanBuild && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
+                        if (SyncedConfig.placedNonGlobalOwnerCanBuild && entity != null && entity.getUniqueID().equals(waystone.getOwner())) radius = -1;
                         else radius = SyncedConfig.placedNonGlobalBlockProtectionRadius;
                     }
                 }

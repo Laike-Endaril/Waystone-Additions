@@ -2,6 +2,8 @@ package com.fantasticsource.waystoneadditions;
 
 import com.fantasticsource.waystoneadditions.compat.Compat;
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
+import com.fantasticsource.waystoneadditions.protection.BlockPistonBaseEdit;
+import com.fantasticsource.waystoneadditions.protection.Protection;
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -42,6 +44,7 @@ public class WaystoneAdditions
         MinecraftForge.EVENT_BUS.register(WaystoneAdditions.class);
         MinecraftForge.EVENT_BUS.register(Protection.class);
         MinecraftForge.EVENT_BUS.register(SyncedConfig.class);
+        MinecraftForge.EVENT_BUS.register(BlockPistonBaseEdit.class);
     }
 
 
