@@ -19,6 +19,10 @@ public class WaystoneAdditionsConfig
         @Config.Comment("Whether waystones drop a waystone item when broken")
         public boolean dropItem = false;
 
+        @Config.Name("Globals are Ownerless")
+        @Config.Comment("If true, global waystones are always ownerless (and therefore cannot be made non-global)")
+        public boolean globalIsPermanent = true;
+
         @Config.Name("Spawnstone")
         @Config.Comment("A global waystone that always generates at natural spawn")
         public SpawnstoneSettings spawnstone = new SpawnstoneSettings();

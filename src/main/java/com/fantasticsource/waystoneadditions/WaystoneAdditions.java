@@ -2,9 +2,13 @@ package com.fantasticsource.waystoneadditions;
 
 import com.fantasticsource.waystoneadditions.compat.Compat;
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
+import com.fantasticsource.waystoneadditions.network.HandlerEditWaystoneEdit;
+import com.fantasticsource.waystoneadditions.network.Network;
 import com.fantasticsource.waystoneadditions.protection.BlockPistonBaseEdit;
 import com.fantasticsource.waystoneadditions.protection.Protection;
 import net.blay09.mods.waystones.block.TileWaystone;
+import net.blay09.mods.waystones.network.NetworkHandler;
+import net.blay09.mods.waystones.network.message.MessageEditWaystone;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -21,9 +26,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 @Mod(modid = WaystoneAdditions.MODID, name = WaystoneAdditions.NAME, version = WaystoneAdditions.VERSION, dependencies = "required-after:waystones@[4.0.67,)")
@@ -93,5 +101,22 @@ public class WaystoneAdditions
     {
         //Compat init
         if (Loader.isModLoaded("journeymap")) Compat.journeymap = true;
+
+
+        //Replace handler for waystone editing packets
+        try
+        {
+            Field f = NetworkHandler.class.getDeclaredField("channel");
+            f.setAccessible(true);
+
+            SimpleNetworkWrapper wrapper = (SimpleNetworkWrapper) f.get(null);
+
+            wrapper.registerMessage(HandlerEditWaystoneEdit.class, MessageEditWaystone.class, 3, Side.SERVER);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            FMLCommonHandler.instance().exitJava(205, true);
+        }
     }
 }

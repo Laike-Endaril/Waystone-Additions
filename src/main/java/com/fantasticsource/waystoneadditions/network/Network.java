@@ -1,5 +1,8 @@
-package com.fantasticsource.waystoneadditions;
+package com.fantasticsource.waystoneadditions.network;
 
+import com.fantasticsource.waystoneadditions.TileWaystoneEdit;
+import com.fantasticsource.waystoneadditions.WaystoneAdditions;
+import com.fantasticsource.waystoneadditions.WaystoneWaypointHandler;
 import com.fantasticsource.waystoneadditions.compat.Compat;
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import io.netty.buffer.ByteBuf;
@@ -164,6 +167,7 @@ public class Network
     {
         private boolean breakable;
         private boolean dropItem;
+        private boolean globalIsPermanent;
 
         private int spawnstoneBlockProtectionRadius;
         private int spawnstoneDamageProtectionRadius;
@@ -201,6 +205,7 @@ public class Network
         {
             buf.writeBoolean(serverSettings.breakable);
             buf.writeBoolean(serverSettings.dropItem);
+            buf.writeBoolean(serverSettings.globalIsPermanent);
 
             buf.writeInt(serverSettings.spawnstone.blockProtectionRadius);
             buf.writeInt(serverSettings.spawnstone.damageProtectionRadius);
@@ -235,6 +240,7 @@ public class Network
         {
             breakable = buf.readBoolean();
             dropItem = buf.readBoolean();
+            globalIsPermanent = buf.readBoolean();
 
             spawnstoneBlockProtectionRadius = buf.readInt();
             spawnstoneDamageProtectionRadius = buf.readInt();
@@ -276,6 +282,7 @@ public class Network
                 {
                     SyncedConfig.breakable = packet.breakable;
                     SyncedConfig.dropItem = packet.dropItem;
+                    SyncedConfig.globalIsPermanent = packet.globalIsPermanent;
 
                     SyncedConfig.spawnstoneBlockProtectionRadius = packet.spawnstoneBlockProtectionRadius;
                     SyncedConfig.spawnstoneDamageProtectionRadius = packet.spawnstoneDamageProtectionRadius;

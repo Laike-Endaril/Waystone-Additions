@@ -1,6 +1,6 @@
 CURRENTLY WORKING ON ==========================================
 
-Make "Global is Permanent" option; if true, global waystones cannot be made non-global
+Implement "Global is Permanent" option; if true, global waystones cannot be made non-global
 
 Add renders for protected zones
 

@@ -1,6 +1,6 @@
 package com.fantasticsource.waystoneadditions.config;
 
-import com.fantasticsource.waystoneadditions.Network;
+import com.fantasticsource.waystoneadditions.network.Network;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -23,6 +23,7 @@ public class SyncedConfig
 
     public static boolean breakable = serverSettings.breakable;
     public static boolean dropItem = serverSettings.dropItem;
+    public static boolean globalIsPermanent = serverSettings.globalIsPermanent;
 
     public static int spawnstoneBlockProtectionRadius = serverSettings.spawnstone.blockProtectionRadius;
     public static int spawnstoneDamageProtectionRadius = serverSettings.spawnstone.damageProtectionRadius;
@@ -104,6 +105,7 @@ public class SyncedConfig
     {
         breakable = serverSettings.breakable;
         dropItem = serverSettings.dropItem;
+        globalIsPermanent = serverSettings.globalIsPermanent;
 
         spawnstoneBlockProtectionRadius = serverSettings.spawnstone.blockProtectionRadius;
         spawnstoneDamageProtectionRadius = serverSettings.spawnstone.damageProtectionRadius;
