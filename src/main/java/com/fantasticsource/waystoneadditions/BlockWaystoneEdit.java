@@ -33,7 +33,14 @@ public class BlockWaystoneEdit extends BlockWaystone
 
     static
     {
-        initReflections();
+        try
+        {
+            registryNameField = ReflectionTool.getField(Impl.class, "registryName");
+        }
+        catch (Exception e)
+        {
+            MCTools.crash(e, 200, true);
+        }
     }
 
 
@@ -43,18 +50,6 @@ public class BlockWaystoneEdit extends BlockWaystone
 
         registryNameField.set(this, new ResourceLocation("waystones", "waystone"));
         setUnlocalizedName(registryName.toString());
-    }
-
-    private static void initReflections()
-    {
-        try
-        {
-            ReflectionTool.getField(Impl.class, "registryName");
-        }
-        catch (Exception e)
-        {
-            MCTools.crash(e, 200, true);
-        }
     }
 
     @Override

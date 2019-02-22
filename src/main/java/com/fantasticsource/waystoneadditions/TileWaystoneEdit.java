@@ -17,7 +17,14 @@ public class TileWaystoneEdit extends TileWaystone
 
     static
     {
-        initReflections();
+        try
+        {
+            ownerField = ReflectionTool.getField(TileWaystone.class, "owner");
+        }
+        catch (Exception e)
+        {
+            MCTools.crash(e, 201, true);
+        }
     }
 
 
@@ -45,18 +52,6 @@ public class TileWaystoneEdit extends TileWaystone
             {
                 WaystoneWaypointHandler.makeWaystoneWaypoint(getWaystoneName(), world.provider.getDimension(), pos);
             }
-        }
-    }
-
-    private static void initReflections()
-    {
-        try
-        {
-            ReflectionTool.getField(TileWaystone.class, "owner");
-        }
-        catch (Exception e)
-        {
-            MCTools.crash(e, 201, true);
         }
     }
 
