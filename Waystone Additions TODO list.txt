@@ -1,6 +1,8 @@
 CURRENTLY WORKING ON ==========================================
 
-Fix desync issues
+Fix desync issues in handler for editing waystones...
+...for global -> non-global, simply remove all activations; access to this action should be strictly limited
+...add a timestamp onto non-global waystones whenever they are created or go from global -> non-global (but not when they are loaded).  When a player logs in, use timestamps to verify data integrity
 
 Add renders for protected zones
 

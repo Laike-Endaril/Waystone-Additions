@@ -1,5 +1,6 @@
 package com.fantasticsource.waystoneadditions;
 
+import com.fantasticsource.mctools.MCTools;
 import journeymap.client.api.ClientPlugin;
 import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
@@ -7,7 +8,6 @@ import journeymap.client.api.display.Waypoint;
 import journeymap.client.api.event.ClientEvent;
 import net.blay09.mods.waystones.Waystones;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @ClientPlugin
@@ -24,8 +24,7 @@ public class WaystoneWaypointHandler implements IClientPlugin
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            FMLCommonHandler.instance().exitJava(204, false);
+            MCTools.crash(e, 204, false);
         }
     }
 

@@ -1,11 +1,12 @@
 package com.fantasticsource.waystoneadditions;
 
+import com.fantasticsource.mctools.MCTools;
+import com.fantasticsource.tools.ReflectionTool;
 import com.fantasticsource.waystoneadditions.compat.Compat;
 import net.blay09.mods.waystones.WaystoneConfig;
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.lang.reflect.Field;
 import java.util.UUID;
@@ -51,13 +52,11 @@ public class TileWaystoneEdit extends TileWaystone
     {
         try
         {
-            ownerField = TileWaystone.class.getDeclaredField("owner");
-            ownerField.setAccessible(true);
+            ReflectionTool.getField(TileWaystone.class, "owner");
         }
-        catch (NoSuchFieldException e)
+        catch (Exception e)
         {
-            FMLCommonHandler.instance().exitJava(201, true);
-            e.printStackTrace();
+            MCTools.crash(e, 201, true);
         }
     }
 
@@ -69,8 +68,7 @@ public class TileWaystoneEdit extends TileWaystone
         }
         catch (IllegalAccessException e)
         {
-            e.printStackTrace();
-            FMLCommonHandler.instance().exitJava(202, false);
+            MCTools.crash(e, 202, false);
         }
         return null;
     }
@@ -89,8 +87,7 @@ public class TileWaystoneEdit extends TileWaystone
         }
         catch (IllegalAccessException e)
         {
-            e.printStackTrace();
-            FMLCommonHandler.instance().exitJava(203, false);
+            MCTools.crash(e, 203, false);
         }
     }
 

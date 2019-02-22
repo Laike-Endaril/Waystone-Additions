@@ -1,5 +1,7 @@
 package com.fantasticsource.waystoneadditions;
 
+import com.fantasticsource.mctools.MCTools;
+import com.fantasticsource.tools.ReflectionTool;
 import com.fantasticsource.waystoneadditions.compat.Compat;
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import com.fantasticsource.waystoneadditions.network.HandlerEditWaystoneEdit;
@@ -17,7 +19,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -106,17 +107,13 @@ public class WaystoneAdditions
         //Replace handler for waystone editing packets
         try
         {
-            Field f = NetworkHandler.class.getDeclaredField("channel");
-            f.setAccessible(true);
-
+            Field f = ReflectionTool.getField(NetworkHandler.class, "channel");
             SimpleNetworkWrapper wrapper = (SimpleNetworkWrapper) f.get(null);
-
             wrapper.registerMessage(HandlerEditWaystoneEdit.class, MessageEditWaystone.class, 3, Side.SERVER);
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            FMLCommonHandler.instance().exitJava(205, true);
+            MCTools.crash(e, 205, true);
         }
     }
 }

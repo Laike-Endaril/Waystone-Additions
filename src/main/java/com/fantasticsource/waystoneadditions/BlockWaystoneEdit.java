@@ -1,5 +1,7 @@
 package com.fantasticsource.waystoneadditions;
 
+import com.fantasticsource.mctools.MCTools;
+import com.fantasticsource.tools.ReflectionTool;
 import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import net.blay09.mods.waystones.WarpMode;
 import net.blay09.mods.waystones.WaystoneConfig;
@@ -19,7 +21,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
@@ -48,13 +49,11 @@ public class BlockWaystoneEdit extends BlockWaystone
     {
         try
         {
-            registryNameField = Impl.class.getDeclaredField("registryName");
-            registryNameField.setAccessible(true);
+            ReflectionTool.getField(Impl.class, "registryName");
         }
-        catch (NoSuchFieldException e)
+        catch (Exception e)
         {
-            e.printStackTrace();
-            FMLCommonHandler.instance().exitJava(200, true);
+            MCTools.crash(e, 200, true);
         }
     }
 
