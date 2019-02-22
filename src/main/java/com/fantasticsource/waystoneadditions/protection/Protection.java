@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -63,7 +64,8 @@ public class Protection
     {
         //This prevents the player from using an item.  Might not catch everything but when it works, it works nicely (it doesn't cause inventory desync)
         //This does not detect buckets!  Buckets are handled in the FillBucketEvent (which should be named UseBucketEvent)
-        if (isBuildProtected(event.getWorld(), new BlockPos(event.getHitVec()), event.getEntity()))
+        Vec3d vec = event.getHitVec();
+        if (vec == null || isBuildProtected(event.getWorld(), new BlockPos(event.getHitVec()), event.getEntity()))
         {
             event.setUseItem(Event.Result.DENY);
             event.setUseBlock(Event.Result.DENY);
@@ -88,7 +90,8 @@ public class Protection
     {
         //This prevents the player from using an item.  Might not catch everything but when it works, it works nicely (it doesn't cause inventory desync)
         //This does not detect buckets!  Buckets are handled in the FillBucketEvent (which should be named UseBucketEvent)
-        if (isBuildProtected(event.getWorld(), new BlockPos(event.getHitVec()), event.getEntity()))
+        Vec3d vec = event.getHitVec();
+        if (vec == null || isBuildProtected(event.getWorld(), new BlockPos(event.getHitVec()), event.getEntity()))
         {
             event.setUseItem(Event.Result.DENY);
             event.setUseBlock(Event.Result.ALLOW);
