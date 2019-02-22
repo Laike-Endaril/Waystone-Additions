@@ -2,8 +2,6 @@ CURRENTLY WORKING ON ==========================================
 
 Make "Global is Permanent" option; if true, global waystones cannot be made non-global
 
-Add option for whether waystones drop their item upon being broken
-
 Add renders for protected zones
 
 

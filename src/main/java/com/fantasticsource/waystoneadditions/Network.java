@@ -163,6 +163,7 @@ public class Network
     public static class ConfigPacket implements IMessage
     {
         private boolean breakable;
+        private boolean dropItem;
 
         private int spawnstoneBlockProtectionRadius;
         private int spawnstoneDamageProtectionRadius;
@@ -199,6 +200,7 @@ public class Network
         public void toBytes(ByteBuf buf)
         {
             buf.writeBoolean(serverSettings.breakable);
+            buf.writeBoolean(serverSettings.dropItem);
 
             buf.writeInt(serverSettings.spawnstone.blockProtectionRadius);
             buf.writeInt(serverSettings.spawnstone.damageProtectionRadius);
@@ -232,6 +234,7 @@ public class Network
         public void fromBytes(ByteBuf buf)
         {
             breakable = buf.readBoolean();
+            dropItem = buf.readBoolean();
 
             spawnstoneBlockProtectionRadius = buf.readInt();
             spawnstoneDamageProtectionRadius = buf.readInt();
@@ -272,6 +275,7 @@ public class Network
                 Minecraft.getMinecraft().addScheduledTask(() ->
                 {
                     SyncedConfig.breakable = packet.breakable;
+                    SyncedConfig.dropItem = packet.dropItem;
 
                     SyncedConfig.spawnstoneBlockProtectionRadius = packet.spawnstoneBlockProtectionRadius;
                     SyncedConfig.spawnstoneDamageProtectionRadius = packet.spawnstoneDamageProtectionRadius;
