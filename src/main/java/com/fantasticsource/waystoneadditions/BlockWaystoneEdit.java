@@ -64,6 +64,13 @@ public class BlockWaystoneEdit extends BlockWaystone
     }
 
     @Override
+    public float getPlayerRelativeBlockHardness(IBlockState state, EntityPlayer player, World worldIn, BlockPos pos)
+    {
+        if (!player.capabilities.isCreativeMode && !SyncedConfig.breakable) return -1;
+        return super.getPlayerRelativeBlockHardness(state, player, worldIn, pos);
+    }
+
+    @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         TileWaystoneEdit tileWaystone = (TileWaystoneEdit) getTileWaystone(world, pos);

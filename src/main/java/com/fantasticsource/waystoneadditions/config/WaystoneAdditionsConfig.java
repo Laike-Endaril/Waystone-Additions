@@ -11,6 +11,10 @@ public class WaystoneAdditionsConfig
 
     public static class ServerSettings
     {
+        @Config.Name("Mineable Waystones")
+        @Config.Comment("If true, waystones can be mined by their owner using a pick")
+        public boolean breakable = false;
+
         @Config.Name("Spawnstone")
         @Config.Comment("A global waystone that always generates at natural spawn")
         public SpawnstoneSettings spawnstone = new SpawnstoneSettings();

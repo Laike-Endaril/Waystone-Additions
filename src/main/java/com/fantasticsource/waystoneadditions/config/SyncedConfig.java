@@ -21,6 +21,8 @@ public class SyncedConfig
     public static int configChanged = 0;
 
 
+    public static boolean breakable = serverSettings.breakable;
+
     public static int spawnstoneBlockProtectionRadius = serverSettings.spawnstone.blockProtectionRadius;
     public static int spawnstoneDamageProtectionRadius = serverSettings.spawnstone.damageProtectionRadius;
     public static boolean spawnstoneEnabled = serverSettings.spawnstone.enabled;
@@ -99,6 +101,8 @@ public class SyncedConfig
 
     private static void reset()
     {
+        breakable = serverSettings.breakable;
+
         spawnstoneBlockProtectionRadius = serverSettings.spawnstone.blockProtectionRadius;
         spawnstoneDamageProtectionRadius = serverSettings.spawnstone.damageProtectionRadius;
         spawnstoneEnabled = serverSettings.spawnstone.enabled;

@@ -1,16 +1,14 @@
 CURRENTLY WORKING ON ==========================================
 
-Fix bug where game sometimes goes into infinite loop when you save and exit to title after hosting a LAN game
+Make "Global is Permanent" option; if true, global waystones cannot be made non-global
+
+Add option for whether waystones drop their item upon being broken
+
+Add renders for protected zones
 
 
 
 ENHANCEMENTS ==================================================
-
-Make "Globals are Ownerless" option; if true, global waystones cannot be owned (and therefore cannot have their settings changed except by OP players)
-
-Add renders for protected zones
-
-Add option for whether waystones drop their item upon being broken
 
 Add waystone -> waystone teleportation chargeup, damage interruption, and other settings similar to those for the warp stone
 Option for whether you select your destination before or after chargeup

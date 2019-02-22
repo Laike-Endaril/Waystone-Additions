@@ -130,7 +130,7 @@ public class Protection
     {
         World world = event.getWorld();
         List<BlockPos> list = event.getAffectedBlocks();
-        for(BlockPos pos : list.toArray(new BlockPos[list.size()]))
+        for (BlockPos pos : list.toArray(new BlockPos[list.size()]))
         {
             if (isBuildProtected(world, pos, null)) list.remove(pos);
         }
@@ -194,7 +194,7 @@ public class Protection
         ArrayList<UUID> owners1 = buildProtectionOwners(world, pos1), owners2 = buildProtectionOwners(world, pos2);
         if (owners1.size() != owners2.size()) return false;
 
-        for(UUID id : owners1)
+        for (UUID id : owners1)
         {
             if (!owners2.contains(id)) return false;
         }
@@ -207,7 +207,7 @@ public class Protection
         ArrayList<UUID> result = new ArrayList<>();
 
         UUID owner;
-        for(TileWaystoneEdit waystone : buildProtectingWaystones(world, pos))
+        for (TileWaystoneEdit waystone : buildProtectingWaystones(world, pos))
         {
             owner = waystone.getOwner();
             if (!result.contains(owner)) result.add(owner);
