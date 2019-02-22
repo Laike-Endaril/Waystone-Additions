@@ -1,5 +1,7 @@
 CURRENTLY WORKING ON ==========================================
 
+Fix desync issues
+
 Add renders for protected zones
 
 
