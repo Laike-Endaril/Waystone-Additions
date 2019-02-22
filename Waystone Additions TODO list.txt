@@ -1,16 +1,12 @@
 CURRENTLY WORKING ON ==========================================
 
-Make build protection work on falling blocks
-
-Make build protection work on flowing liquids?
+Fix bug where game sometimes goes into infinite loop when you save and exit to title after hosting a LAN game
 
 
 
 ENHANCEMENTS ==================================================
 
-Make "Globals are Ownerless" option; if true, global waystones cannot be owned (and therefore cannot have their settings changed)
-
-Change "can only be renamed by whoever placed them" to "can only be renamed by their owner"
+Make "Globals are Ownerless" option; if true, global waystones cannot be owned (and therefore cannot have their settings changed except by OP players)
 
 Add renders for protected zones
 
@@ -19,6 +15,10 @@ Add option for whether waystones drop their item upon being broken
 Add waystone -> waystone teleportation chargeup, damage interruption, and other settings similar to those for the warp stone
 Option for whether you select your destination before or after chargeup
 Option for whether the waystone being teleported to shows a particle effect when someone is charging up to teleport to it (choice before chargeup must be set to true)
+
+Make build protection work on falling blocks?
+
+Make build protection work on flowing liquids?
 
 
 

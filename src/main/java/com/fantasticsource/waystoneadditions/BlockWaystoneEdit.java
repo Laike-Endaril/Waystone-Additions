@@ -92,19 +92,16 @@ public class BlockWaystoneEdit extends BlockWaystone
 
         if (player.isSneaking() && (player.capabilities.isCreativeMode || !WaystoneConfig.general.creativeModeOnly))
         {
-            if (!world.isRemote) //TODO see if removing this line disables gui when sneak-right clicking unowned waystone
+            if (tileWaystone.isGlobal() && !player.capabilities.isCreativeMode && !WaystoneConfig.general.allowEveryoneGlobal)
             {
-                if (WaystoneConfig.general.restrictRenameToOwner && !tileWaystone.isOwner(player))
-                {
-                    player.sendStatusMessage(new TextComponentTranslation("waystones:notTheOwner"), true);
-                    return true;
-                }
+                player.sendStatusMessage(new TextComponentTranslation("waystones:creativeRequired"), true);
+                return true;
+            }
 
-                if (tileWaystone.isGlobal() && !player.capabilities.isCreativeMode && !WaystoneConfig.general.allowEveryoneGlobal)
-                {
-                    player.sendStatusMessage(new TextComponentTranslation("waystones:creativeRequired"), true);
-                    return true;
-                }
+            if (WaystoneConfig.general.restrictRenameToOwner && !tileWaystone.isOwner(player))
+            {
+                player.sendStatusMessage(new TextComponentTranslation("waystoneadditions:notTheOwner"), true);
+                return true;
             }
 
             Waystones.proxy.openWaystoneSettings(player, new WaystoneEntry(tileWaystone.getParent()), false);
