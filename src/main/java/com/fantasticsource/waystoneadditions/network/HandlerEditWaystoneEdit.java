@@ -1,5 +1,6 @@
 package com.fantasticsource.waystoneadditions.network;
 
+import com.fantasticsource.waystoneadditions.config.SyncedConfig;
 import net.blay09.mods.waystones.GlobalWaystones;
 import net.blay09.mods.waystones.WarpMode;
 import net.blay09.mods.waystones.WaystoneConfig;
@@ -45,6 +46,13 @@ public class HandlerEditWaystoneEdit implements IMessageHandler<MessageEditWayst
                 TileWaystone tileWaystone = ((TileWaystone) tileEntity).getParent();
                 if (globalWaystones.getGlobalWaystone(tileWaystone.getWaystoneName()) != null && !entityPlayer.capabilities.isCreativeMode && !WaystoneConfig.general.allowEveryoneGlobal)
                 {
+                    ctx.getServerHandler().player.sendMessage(new TextComponentTranslation("waystones:creativeRequired"));
+                    return;
+                }
+
+                if (!entityPlayer.capabilities.isCreativeMode && SyncedConfig.globalIsPermanent && tileWaystone.isGlobal() && !message.isGlobal())
+                {
+                    ctx.getServerHandler().player.sendMessage(new TextComponentTranslation("waystoneadditions:globalIsPermanent"));
                     return;
                 }
 

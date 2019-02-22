@@ -1,1 +1,2 @@
 waystoneadditions:notTheOwner=Waystones can only be renamed by their owner.
+waystoneadditions:globalIsPermanent=Global waystones cannot be made non-global (except in creative mode).
