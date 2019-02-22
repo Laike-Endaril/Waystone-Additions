@@ -19,7 +19,9 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Protection
 {
@@ -182,6 +184,68 @@ public class Protection
         }
 
         return false;
+    }
+
+    public static boolean buildProtectionOwnersMatch(World world, BlockPos pos1, BlockPos pos2)
+    {
+        ArrayList<UUID> owners1 = buildProtectionOwners(world, pos1), owners2 = buildProtectionOwners(world, pos2);
+        if (owners1.size() != owners2.size()) return false;
+
+        for(UUID id : owners1)
+        {
+            if (!owners2.contains(id)) return false;
+        }
+
+        return true;
+    }
+
+    public static ArrayList<UUID> buildProtectionOwners(World world, BlockPos pos)
+    {
+        ArrayList<UUID> result = new ArrayList<>();
+
+        UUID owner;
+        for(TileWaystoneEdit waystone : buildProtectingWaystones(world, pos))
+        {
+            owner = waystone.getOwner();
+            if (!result.contains(owner)) result.add(owner);
+        }
+
+        return result;
+    }
+
+    public static ArrayList<TileWaystoneEdit> buildProtectingWaystones(World world, BlockPos pos)
+    {
+        ArrayList<TileWaystoneEdit> result = new ArrayList<>();
+
+        int radius;
+        List<TileEntity> list = world.loadedTileEntityList;
+        for (TileEntity tileEntity : list.toArray(new TileEntity[list.size()]))
+        {
+            if (tileEntity instanceof TileWaystoneEdit)
+            {
+                TileWaystoneEdit waystone = (TileWaystoneEdit) tileEntity;
+
+                if (waystone.isSpawnstone) radius = SyncedConfig.spawnstoneBlockProtectionRadius;
+                else if (waystone.wasGenerated())
+                {
+                    if (waystone.isMossy()) radius = SyncedConfig.naturalMossyBlockProtectionRadius;
+                    else radius = SyncedConfig.naturalSmoothBlockProtectionRadius;
+                }
+                else
+                {
+                    if (waystone.isGlobal()) radius = SyncedConfig.placedGlobalBlockProtectionRadius;
+                    else radius = SyncedConfig.placedNonGlobalBlockProtectionRadius;
+                }
+
+                if (radius < 1) continue;
+
+                BlockPos pos2 = waystone.getPos();
+
+                if (Math.abs(pos.getX() - pos2.getX()) <= radius && Math.abs(pos.getY() - pos2.getY()) <= radius && Math.abs(pos.getZ() - pos2.getZ()) <= radius) result.add(waystone);
+            }
+        }
+
+        return result;
     }
 
     public static boolean isBuildProtected(World world, BlockPos pos, Entity entity)

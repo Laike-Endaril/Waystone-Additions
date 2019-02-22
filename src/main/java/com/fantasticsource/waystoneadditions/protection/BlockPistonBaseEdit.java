@@ -60,8 +60,8 @@ public class BlockPistonBaseEdit extends BlockPistonBase
     public static boolean canPush(BlockPos pistonPos, IBlockState blockStateIn, World worldIn, BlockPos pos, EnumFacing facing, boolean destroyBlocks, EnumFacing p_185646_5_)
     {
         if (!worldIn.getWorldBorder().contains(pos)) return false;
-        if (Protection.isBuildProtected(worldIn, pistonPos, null) != Protection.isBuildProtected(worldIn, pos, null)) return false;
-        if (!worldIn.getBlockState(pos).getBlock().equals(Blocks.AIR) && Protection.isBuildProtected(worldIn, pos, null) != Protection.isBuildProtected(worldIn, pos.offset(facing), null)) return false;
+        if (!Protection.buildProtectionOwnersMatch(worldIn, pistonPos, pos)) return false;
+        if (!worldIn.getBlockState(pos).getBlock().equals(Blocks.AIR) && !Protection.buildProtectionOwnersMatch(worldIn, pos, pos.offset(facing))) return false;
 
         Block block = blockStateIn.getBlock();
         if (block == Blocks.OBSIDIAN) return false;
@@ -324,7 +324,7 @@ public class BlockPistonBaseEdit extends BlockPistonBase
             worldIn.setBlockToAir(pos.offset(direction));
         }
 
-        if (Protection.isBuildProtected(worldIn, pos, null) != Protection.isBuildProtected(worldIn, pos.offset(direction), null)) return false;
+        if (!Protection.buildProtectionOwnersMatch(worldIn, pos, pos.offset(direction))) return false;
 
         BlockPistonStructureHelperEdit blockpistonstructurehelper = new BlockPistonStructureHelperEdit(worldIn, pos, direction, extending);
 

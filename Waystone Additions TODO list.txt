@@ -1,8 +1,8 @@
 CURRENTLY WORKING ON ==========================================
 
-Make block protection work on falling blocks
+Make build protection work on falling blocks
 
-Make block protection work on flowing liquids?
+Make build protection work on flowing liquids?
 
 
 
