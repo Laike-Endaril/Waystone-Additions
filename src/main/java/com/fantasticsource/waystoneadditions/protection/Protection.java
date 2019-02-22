@@ -14,6 +14,7 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -115,6 +116,18 @@ public class Protection
                 event.setCanceled(true);
                 break;
             }
+        }
+    }
+
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onDetonation(ExplosionEvent.Detonate event)
+    {
+        World world = event.getWorld();
+        List<BlockPos> list = event.getAffectedBlocks();
+        for(BlockPos pos : list.toArray(new BlockPos[list.size()]))
+        {
+            if (isBuildProtected(world, pos, null)) list.remove(pos);
         }
     }
 
