@@ -10,9 +10,10 @@ Add renders for protected zones
 
 ENHANCEMENTS ==================================================
 
+Edit all charging items (warp stone, scrolls) so that right click ONLY charges up and teleports...
+...Selecting a destination should be done with sneak-right click
 Add waystone -> waystone teleportation chargeup, damage interruption, and other settings similar to those for the warp stone
-Option for whether you select your destination before or after chargeup
-Option for whether the waystone being teleported to shows a particle effect when someone is charging up to teleport to it (choice before chargeup must be set to true)
+Option for whether the waystone being teleported to shows visuals when someone is charging up to teleport to it; show visual for each player charging as well as their progress
 
 Make build protection work on falling blocks?
 
@@ -21,8 +22,6 @@ Make build protection work on flowing liquids?
 
 
 WORLDGEN ======================================================
-
-Add discoverable global waystones
 
 Add eldstones (generate underground)
 
@@ -33,6 +32,8 @@ Add netherstones
 Add enderstones
 
 Add option for naturally generating waystones in other dimensions
+
+Add discoverable global waystones
 
 
 
