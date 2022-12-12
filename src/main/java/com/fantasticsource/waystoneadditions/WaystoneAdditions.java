@@ -39,7 +39,7 @@ public class WaystoneAdditions
 {
     public static final String MODID = "waystoneadditions";
     public static final String NAME = "Waystone Additions";
-    public static final String VERSION = "1.12.2.001";
+    public static final String VERSION = "1.12.2.001a";
     public static ArrayList<TileWaystone> waystones = new ArrayList<>();
     public static TileWaystoneEdit spawnstone;
 
