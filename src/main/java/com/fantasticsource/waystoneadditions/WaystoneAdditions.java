@@ -30,7 +30,6 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ public class WaystoneAdditions
     public static final String VERSION = "1.12.2.001";
     public static ArrayList<TileWaystone> waystones = new ArrayList<>();
     public static TileWaystoneEdit spawnstone;
-    private static Logger logger;
 
 
     public WaystoneAdditions()
@@ -91,8 +89,6 @@ public class WaystoneAdditions
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        logger = event.getModLog();
-
         GameRegistry.registerTileEntity(TileWaystoneEdit.class, new ResourceLocation("waystones", "waystone"));
         GameRegistry.registerWorldGenerator(new SpawnStoneGenerator(), 0);
     }

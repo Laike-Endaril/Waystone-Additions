@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.UUID;
 
@@ -76,6 +77,7 @@ public class Network
 
     public static class WaystoneWaypointPacketHandler implements IMessageHandler<WaystoneWaypointPacket, IMessage>
     {
+        @SideOnly(Side.CLIENT)
         @Override
         public IMessage onMessage(WaystoneWaypointPacket packet, MessageContext ctx)
         {
@@ -98,7 +100,6 @@ public class Network
     public static class WaystonePacket implements IMessage
     {
         private TileWaystoneEdit waystone;
-        private int x, y, z;
 
         private UUID owner;
         private BlockPos pos;
@@ -141,6 +142,7 @@ public class Network
 
     public static class WaystonePacketHandler implements IMessageHandler<WaystonePacket, IMessage>
     {
+        @SideOnly(Side.CLIENT)
         @Override
         public IMessage onMessage(WaystonePacket packet, MessageContext ctx)
         {
@@ -273,6 +275,7 @@ public class Network
 
     public static class ConfigPacketHandler implements IMessageHandler<ConfigPacket, IMessage>
     {
+        @SideOnly(Side.CLIENT)
         @Override
         public IMessage onMessage(ConfigPacket packet, MessageContext ctx)
         {
